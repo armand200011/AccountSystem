@@ -15,7 +15,6 @@ public class AccountTransaction implements Serializable {
     @Id
     @SequenceGenerator(name = "ACCOUNT_TRANS_GENERIC_SEQ", sequenceName = "ARMAND.ACCOUNT_TRANS_GENERIC_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACCOUNT_TRANS_GENERIC_SEQ")
-
     private Long accountTransId;
     private AccountType accountType;
     private Member member;
@@ -42,7 +41,7 @@ public class AccountTransaction implements Serializable {
         this.accountTransId = accountTransId;
     }
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ACCOUNT_TYPE_ID")
     public AccountType getAccountType() {
         return accountType;
@@ -52,15 +51,14 @@ public class AccountTransaction implements Serializable {
         this.accountType = accountType;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MEMBER_ID")
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "MEMBER_ID")
+    @Column(name = "MEMBER")
     public Member getMember() {
         return member;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
-    }
+    public void setMember(Member member) {this.member = member;}
 
     @Column(name = "AMOUNT")
     public Long getAmount() {

@@ -11,11 +11,9 @@ import java.util.Set;
 @Table(name = "ACCOUNT_TYPE", schema = "ARMAND")
 public class AccountType implements Serializable {
 
-    private static final long serialVersionID = 383725316797154577L;
 
-    @Id
-    @SequenceGenerator(name = "ACCOUNT_TYPE_GENERIC_SEQ", sequenceName = "ARMAND.ACCOUNT_TYPE_GENERIC_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACCOUNT_TYPE_GENERIC_SEQ")
+    private static final long serialVersionUID = 5417020135534385990L;
+    //383725316797154577L
 
     private Long accountTypeId;
     private String accountTypeCode;
@@ -27,6 +25,12 @@ public class AccountType implements Serializable {
     public AccountType() {
     }
 
+    public AccountType(String accountTypeCode, String accountTypeName, LocalDate accountTypeDateCreated) {
+        this.accountTypeCode = accountTypeCode;
+        this.accountTypeName = accountTypeName;
+        this.accountTypeDateCreated = accountTypeDateCreated;
+    }
+
     public AccountType(Long accountTypeId, String accountTypeCode, String accountTypeName, LocalDate accountTypeDateCreated) {
         this.accountTypeId = accountTypeId;
         this.accountTypeCode = accountTypeCode;
@@ -34,6 +38,9 @@ public class AccountType implements Serializable {
         this.accountTypeDateCreated = accountTypeDateCreated;
     }
 
+    @Id
+    @SequenceGenerator(name = "ACCOUNT_TYPE_GENERIC_SEQ", sequenceName = "ARMAND.ACCOUNT_TYPE_GENERIC_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACCOUNT_TYPE_GENERIC_SEQ")
     @Column(name = "ACCOUNT_TYPE_ID")
     public Long getAccountTypeId() {
         return accountTypeId;

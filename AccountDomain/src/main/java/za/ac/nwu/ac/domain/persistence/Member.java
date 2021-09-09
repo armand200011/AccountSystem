@@ -11,9 +11,6 @@ public class Member implements Serializable {
 
 
     private static final long serialVersionUID = 392991213906053599L;
-    @Id
-    @SequenceGenerator(name = "MEMBER_GENERIC_SEQ", sequenceName = "ARMAND.MEMBER_GENERIC_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_GENERIC_SEQ")
 
     private Long memberId;
     private String memberFullName;
@@ -24,12 +21,20 @@ public class Member implements Serializable {
     public Member() {
     }
 
+    public Member(String memberFullName, Number balance) {
+        this.memberFullName = memberFullName;
+        this.balance = balance;
+    }
+
     public Member(Long memberId, String memberFullName, Number balance) {
         this.memberId = memberId;
         this.memberFullName = memberFullName;
         this.balance = balance;
     }
-
+    @Id
+    @SequenceGenerator(name = "MEMBER_GENERIC_SEQ", sequenceName = "ARMAND.MEMBER_GENERIC_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_GENERIC_SEQ")
+    @Column(name = "MEMBER_ID")
     public Long getMemberId() {
         return memberId;
     }
@@ -38,6 +43,7 @@ public class Member implements Serializable {
         this.memberId = memberId;
     }
 
+    @Column(name = "MEMBER_FULLNAME")
     public String getMemberFullName() {
         return memberFullName;
     }
@@ -46,6 +52,7 @@ public class Member implements Serializable {
         this.memberFullName = memberFullName;
     }
 
+    @Column(name = "BALANCE")
     public Number getBalance() {
         return balance;
     }
