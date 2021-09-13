@@ -1,11 +1,14 @@
 package za.ac.nwu.ac.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import za.ac.nwu.ac.domain.persistence.AccountType;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@ApiModel(value = "AccountType", description = "A DTO that represents the AccountType")
 public class AccountTypeDto implements Serializable {
 
 
@@ -25,11 +28,18 @@ public class AccountTypeDto implements Serializable {
     }
 
     public AccountTypeDto(AccountType accountType) {
-        accountType.setAccountTypeName(accountType.getAccountTypeName());
-        accountType.setAccountTypeDateCreated(accountType.getAccountTypeDateCreated());
-        accountType.setAccountTypeCode(accountType.getAccountTypeCode());
+        this.setAccountTypeName(accountType.getAccountTypeName());
+        this.setAccountTypeDateCreated(accountType.getAccountTypeDateCreated());
+        this.setAccountTypeCode(accountType.getAccountTypeCode());
     }
 
+    @ApiModelProperty(position = 1,
+            value = "AccountType AccountTypeCode",
+            name = "AccountTypeCode",
+            notes = "Uniquely identifies the account type",
+            dataType = "java.lang.String",
+            example = "MILES",
+            required = true)
     public String getAccountTypeCode() {
         return accountTypeCode;
     }
@@ -38,6 +48,13 @@ public class AccountTypeDto implements Serializable {
         this.accountTypeCode = accountTypeCode;
     }
 
+    @ApiModelProperty(position = 2,
+            value = "AccountType AccountTypeName",
+            name = "AccountTypeName",
+            notes = "The name of the account type",
+            dataType = "java.lang.String",
+            example = "Miles",
+            required = true)
     public String getAccountTypeName() {
         return accountTypeName;
     }
@@ -46,6 +63,13 @@ public class AccountTypeDto implements Serializable {
         this.accountTypeName = accountTypeName;
     }
 
+    @ApiModelProperty(position = 3,
+            value = "AccountType AccountTypeDateCreated",
+            name = "AccountTypeDateCreated",
+            notes = "The data on which the AccountType was created",
+            dataType = "java.lang.String",
+            example = "2021-01-01",
+            allowEmptyValue = true)
     public LocalDate getAccountTypeDateCreated() {
         return accountTypeDateCreated;
     }

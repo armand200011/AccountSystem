@@ -1,11 +1,14 @@
 package za.ac.nwu.ac.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import za.ac.nwu.ac.domain.persistence.Member;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@ApiModel(value = "Member", description = "A DTO that represents a Member")
 public class MemberDto implements Serializable {
 
 
@@ -23,10 +26,17 @@ public class MemberDto implements Serializable {
     }
 
     public MemberDto(Member member) {
-        member.setMemberFullName(member.getMemberFullName());
-        member.setBalance(member.getBalance());
+        this.setMemberFullName(member.getMemberFullName());
+        this.setBalance(member.getBalance());
     }
 
+    @ApiModelProperty(position = 1,
+            value = "Member MemberFullName",
+            name = "FullName",
+            notes = "The member's fullname",
+            dataType = "java.lang.String",
+            example = "Armand de Beer",
+            required = true)
     public String getMemberFullName() {
         return memberFullName;
     }
@@ -35,6 +45,13 @@ public class MemberDto implements Serializable {
         this.memberFullName = memberFullName;
     }
 
+    @ApiModelProperty(position = 2,
+            value = "Member Balance",
+            name = "Balance",
+            notes = "The member's balance",
+            dataType = "java.lang.number",
+            example = "10000",
+            required = true)
     public Number getBalance() {
         return balance;
     }

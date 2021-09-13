@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface FetchAccountTypeFlow {
     List<AccountTypeDto> getAllAccountTypes();
+    AccountTypeDto getAccountTypeByAccountTypeCode(String accountTypeCode);
 }
