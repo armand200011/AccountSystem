@@ -15,12 +15,12 @@ public class MemberDto implements Serializable {
     private static final long serialVersionUID = -3675411777951570019L;
 
     private String memberFullName;
-    private Number balance;
+    private Double balance;
 
     public MemberDto() {
     }
 
-    public MemberDto(String memberFullName, Number balance) {
+    public MemberDto(String memberFullName, Double balance) {
         this.memberFullName = memberFullName;
         this.balance = balance;
     }
@@ -49,14 +49,14 @@ public class MemberDto implements Serializable {
             value = "Member Balance",
             name = "Balance",
             notes = "The member's balance",
-            dataType = "java.lang.number",
-            example = "10000",
+            dataType = "java.lang.Double",
+            example = "10000.99",
             required = true)
-    public Number getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(Number balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 

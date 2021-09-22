@@ -60,7 +60,7 @@ public class AccountTypeController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping("account_type_code")
+    @GetMapping("{accountTypeCode}")
     @ApiOperation(value = "Fetches the specified AccountType", notes = "Fetches the AccountType corresponding AccountTypeCode")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Goal found", response = GeneralResponse.class),
@@ -71,12 +71,16 @@ public class AccountTypeController {
     public ResponseEntity<GeneralResponse<AccountTypeDto>> getAccountType(
             @ApiParam(value = "The accountTypeCode that uniquely identifies the AccountType",
                     example = "MILES",
-                    name = "account_type_code",
+                    name = "accountTypeCode",
                     required = true)
             @PathVariable("accountTypeCode") final String accountTypeCode){
         AccountTypeDto accountType = fetchAccountTypeFlow.getAccountTypeByAccountTypeCode(accountTypeCode);
         GeneralResponse<AccountTypeDto> response = new GeneralResponse<>(true,accountType);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+
+
+
 
 }

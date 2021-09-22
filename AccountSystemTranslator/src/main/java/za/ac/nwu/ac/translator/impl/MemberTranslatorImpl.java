@@ -27,25 +27,43 @@ public class MemberTranslatorImpl implements MemberTranslator {
     public List<MemberDto> getAllMembers() {
         List<MemberDto> members = new ArrayList<>();
         try {
-            for (Member member : memberRepository.findAll()){
+            for (Member member : memberRepository.findAll()) {
                 members.add(new MemberDto(member));
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Not able to read from database.", e);
         }
         return members;
     }
 
     @Override
-    public MemberDto create(MemberDto memberDto){
-        try{
+    public MemberDto create(MemberDto memberDto) {
+        try {
             Member member = memberRepository.save(memberDto.getMember());
             return new MemberDto(member);
-        }
-
-        catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Unable to save to database", e);
+        }
+    }
+
+    @Override
+    public MemberDto getAccountBalanceNativeQuery(String memberFullName) {
+        try {
+            Member member = memberRepository.getAccountBalanceNativeQuery(memberFullName);
+            return new MemberDto(member);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+    }
+
+    @Override
+    public MemberDto addAccountBalance(String memberFullName, Double amount) {
+        try {
+            Member member = memberRepository.getAccountBalanceNativeQuery(memberFullName);
+            member.setBalance((member.getBalance() + amount));
+            return new MemberDto(member);
+        } catch (Exception e) {
+            throw new RuntimeException("Could not add the desired amount to the account balance", e);
         }
     }
 }

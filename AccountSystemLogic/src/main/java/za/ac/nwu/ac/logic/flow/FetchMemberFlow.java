@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface FetchMemberFlow {
     List<MemberDto> getAllMembers();
+    MemberDto getAccountBalance(String memberFullName);
 }

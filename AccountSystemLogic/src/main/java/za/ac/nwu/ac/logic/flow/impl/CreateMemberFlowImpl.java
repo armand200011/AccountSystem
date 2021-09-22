@@ -22,7 +22,7 @@ public class CreateMemberFlowImpl implements CreateMemberFlow {
     @Override
     public MemberDto create(MemberDto member){
         if(member.getBalance()==null) {
-            member.setBalance(50);
+            member.setBalance(50.55);
         }
 
         return memberTranslator.create(member);

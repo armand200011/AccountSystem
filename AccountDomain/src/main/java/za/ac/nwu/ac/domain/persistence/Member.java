@@ -14,19 +14,19 @@ public class Member implements Serializable {
 
     private Long memberId;
     private String memberFullName;
-    private Number balance;
+    private Double balance;
 
     private Set<AccountTransaction> accountTransactions;
 
     public Member() {
     }
 
-    public Member(String memberFullName, Number balance) {
+    public Member(String memberFullName, Double balance) {
         this.memberFullName = memberFullName;
         this.balance = balance;
     }
 
-    public Member(Long memberId, String memberFullName, Number balance) {
+    public Member(Long memberId, String memberFullName, Double balance) {
         this.memberId = memberId;
         this.memberFullName = memberFullName;
         this.balance = balance;
@@ -53,11 +53,11 @@ public class Member implements Serializable {
     }
 
     @Column(name = "BALANCE")
-    public Number getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(Number balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 
@@ -88,7 +88,7 @@ public class Member implements Serializable {
         return "Member{" +
                 "memberId=" + memberId +
                 ", memberFullName='" + memberFullName + '\'' +
-                ", balance=" + balance +
+                ", balance=" +String.format("%.2f", balance) +
                 '}';
     }
 }

@@ -26,4 +26,9 @@ public class FetchMemberFlowImpl implements FetchMemberFlow {
     public List<MemberDto> getAllMembers() {
         return memberTranslator.getAllMembers();
     }
+
+    @Override
+    public MemberDto getAccountBalance(String memberFullName) {
+        return memberTranslator.getAccountBalanceNativeQuery(memberFullName);
+    }
 }
