@@ -10,4 +10,5 @@ public interface MemberTranslator {
     MemberDto create(MemberDto member);
     MemberDto getAccountBalanceNativeQuery(String memberFullName);
     MemberDto addAccountBalance(String memberFullName, Double amount);
+    MemberDto subtractAccountBalance(String memberFullName, Double amount);
 }

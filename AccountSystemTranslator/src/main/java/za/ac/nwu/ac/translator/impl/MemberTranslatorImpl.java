@@ -66,4 +66,15 @@ public class MemberTranslatorImpl implements MemberTranslator {
             throw new RuntimeException("Could not add the desired amount to the account balance", e);
         }
     }
+
+    @Override
+    public MemberDto subtractAccountBalance(String memberFullName, Double amount) {
+        try {
+            Member member = memberRepository.getAccountBalanceNativeQuery(memberFullName);
+            member.setBalance((member.getBalance() - amount));
+            return new MemberDto(member);
+        } catch (Exception e) {
+            throw new RuntimeException("Could not subtract the desired amount to the account balance", e);
+        }
+    }
 }

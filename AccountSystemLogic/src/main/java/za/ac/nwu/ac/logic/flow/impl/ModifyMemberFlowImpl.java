@@ -19,4 +19,9 @@ public class ModifyMemberFlowImpl implements ModifyMemberFlow {
     public MemberDto addAccountBalance(String memberFullName, Double amount) {
         return memberTranslator.addAccountBalance( memberFullName, amount);
     }
+
+    @Override
+    public MemberDto subtractAccountBalance(String memberFullName, Double amount) {
+        return memberTranslator.subtractAccountBalance( memberFullName, amount);
+    }
 }
