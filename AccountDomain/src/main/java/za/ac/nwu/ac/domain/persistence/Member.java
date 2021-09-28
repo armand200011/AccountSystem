@@ -88,7 +88,7 @@ public class Member implements Serializable {
         return "Member{" +
                 "memberId=" + memberId +
                 ", memberFullName='" + memberFullName + '\'' +
-                ", balance=" +String.format("%.2f", balance) +
+                ", balance=" + String.format("%.2f", balance) +
                 '}';
     }
 }
