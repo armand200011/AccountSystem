@@ -11,18 +11,18 @@ import javax.transaction.Transactional;
 public class ModifyMemberFlowImpl implements ModifyMemberFlow {
     private final MemberTranslator memberTranslator;
 
-<span class="nc" id="L14">    public ModifyMemberFlowImpl(MemberTranslator memberTranslator) {</span>
-<span class="nc" id="L15">        this.memberTranslator = memberTranslator;</span>
-<span class="nc" id="L16">    }</span>
+<span class="fc" id="L14">    public ModifyMemberFlowImpl(MemberTranslator memberTranslator) {</span>
+<span class="fc" id="L15">        this.memberTranslator = memberTranslator;</span>
+<span class="fc" id="L16">    }</span>
 
     @Override
     public MemberDto addAccountBalance(String memberFullName, Double amount) {
-<span class="nc" id="L20">        return memberTranslator.addAccountBalance( memberFullName, amount);</span>
+<span class="fc" id="L20">        return memberTranslator.addAccountBalance( memberFullName, amount);</span>
     }
 
     @Override
     public MemberDto subtractAccountBalance(String memberFullName, Double amount) {
-<span class="nc" id="L25">        return memberTranslator.subtractAccountBalance( memberFullName, amount);</span>
+<span class="fc" id="L25">        return memberTranslator.subtractAccountBalance( memberFullName, amount);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

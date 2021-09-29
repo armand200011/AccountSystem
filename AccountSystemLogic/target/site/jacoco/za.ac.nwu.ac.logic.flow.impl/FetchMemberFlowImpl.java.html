@@ -18,18 +18,18 @@ public class FetchMemberFlowImpl implements FetchMemberFlow {
 
     private final MemberTranslator memberTranslator;
     @Autowired
-<span class="nc" id="L21">    public FetchMemberFlowImpl(MemberTranslator memberTranslator) {</span>
-<span class="nc" id="L22">        this.memberTranslator = memberTranslator;</span>
-<span class="nc" id="L23">    }</span>
+<span class="fc" id="L21">    public FetchMemberFlowImpl(MemberTranslator memberTranslator) {</span>
+<span class="fc" id="L22">        this.memberTranslator = memberTranslator;</span>
+<span class="fc" id="L23">    }</span>
 
     @Override
     public List&lt;MemberDto&gt; getAllMembers() {
-<span class="nc" id="L27">        return memberTranslator.getAllMembers();</span>
+<span class="fc" id="L27">        return memberTranslator.getAllMembers();</span>
     }
 
     @Override
     public MemberDto getAccountBalance(String memberFullName) {
-<span class="nc" id="L32">        return memberTranslator.getAccountBalanceNativeQuery(memberFullName);</span>
+<span class="fc" id="L32">        return memberTranslator.getAccountBalanceNativeQuery(memberFullName);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

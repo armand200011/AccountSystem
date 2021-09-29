@@ -1,1 +1,5 @@
 za\ac\nwu\ac\logic\flow\impl\CreateAccountTypeFlowImplTest.class
+za\ac\nwu\ac\logic\flow\impl\CreateMemberFlowImplTest.class
+za\ac\nwu\ac\logic\flow\impl\FetchAccountTypeFlowImplTest.class
+za\ac\nwu\ac\logic\flow\impl\FetchMemberFlowImplTest.class
+za\ac\nwu\ac\logic\flow\ModifyMemberFlowTest.class

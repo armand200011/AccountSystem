@@ -17,18 +17,18 @@ public class FetchAccountTypeFlowImpl implements FetchAccountTypeFlow {
     private final AccountTypeTranslator accountTypeTranslator;
 
     @Autowired
-<span class="nc" id="L20">    public FetchAccountTypeFlowImpl(AccountTypeTranslator accountTypeTranslator){</span>
-<span class="nc" id="L21">        this.accountTypeTranslator = accountTypeTranslator;</span>
-<span class="nc" id="L22">    }</span>
+<span class="fc" id="L20">    public FetchAccountTypeFlowImpl(AccountTypeTranslator accountTypeTranslator){</span>
+<span class="fc" id="L21">        this.accountTypeTranslator = accountTypeTranslator;</span>
+<span class="fc" id="L22">    }</span>
 
     @Override
     public List&lt;AccountTypeDto&gt; getAllAccountTypes() {
-<span class="nc" id="L26">        return accountTypeTranslator.getAllAccountTypes();</span>
+<span class="fc" id="L26">        return accountTypeTranslator.getAllAccountTypes();</span>
     }
 
     @Override
     public AccountTypeDto getAccountTypeByAccountTypeCode(String accountTypeCode) {
-<span class="nc" id="L31">        return accountTypeTranslator.getAccountTypeByAccountTypeCodeNativeQuery(accountTypeCode);</span>
+<span class="fc" id="L31">        return accountTypeTranslator.getAccountTypeByAccountTypeCodeNativeQuery(accountTypeCode);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
