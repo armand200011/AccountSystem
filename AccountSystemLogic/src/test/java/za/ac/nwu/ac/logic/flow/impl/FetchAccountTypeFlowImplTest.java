@@ -38,9 +38,9 @@ public class FetchAccountTypeFlowImplTest {
     @Test
     public void getAllAccountTypes() {
         try {
-            String expectedResponse = "[AccountTypeDto{accountTypeCode='accountTypeCode', accountTypeName='name', accountTypeDateCreated=2021-09-29}]";
+            String expectedResponse = "[AccountTypeDto{accountTypeId='1'accountTypeCode='accountTypeCode', accountTypeName='name', accountTypeDateCreated=2021-09-29}]";
             List<AccountTypeDto> accountTypeDtos = new ArrayList<>();
-            accountTypeDtos.add(new AccountTypeDto("accountTypeCode", "name", LocalDate.parse("2021-09-29")));
+            accountTypeDtos.add(new AccountTypeDto(Long.valueOf(1),"accountTypeCode", "name", LocalDate.parse("2021-09-29")));
             when(translator.getAllAccountTypes()).thenReturn(accountTypeDtos);
             List<AccountTypeDto> res = flow.getAllAccountTypes();
             assertNotNull(res);
@@ -54,8 +54,8 @@ public class FetchAccountTypeFlowImplTest {
     @Test
     public void getAccountTypeByAccountTypeCode() {
         try {
-            String expectedResponse = "AccountTypeDto{accountTypeCode='accountTypeCode', accountTypeName='name', accountTypeDateCreated=2021-09-29}";
-            AccountTypeDto accountTypeDto = new AccountTypeDto("accountTypeCode", "name", LocalDate.parse("2021-09-29"));
+            String expectedResponse = "AccountTypeDto{accountTypeId='1'accountTypeCode='accountTypeCode', accountTypeName='name', accountTypeDateCreated=2021-09-29}";
+            AccountTypeDto accountTypeDto = new AccountTypeDto(Long.valueOf(1),"accountTypeCode", "name", LocalDate.parse("2021-09-29"));
             when(translator.getAccountTypeByAccountTypeCodeNativeQuery(anyString())).thenReturn(accountTypeDto);
             AccountTypeDto res = flow.getAccountTypeByAccountTypeCode("accountTypeCode");
             assertNotNull(res);

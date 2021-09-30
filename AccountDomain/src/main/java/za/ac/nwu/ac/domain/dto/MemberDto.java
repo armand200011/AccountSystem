@@ -14,10 +14,17 @@ public class MemberDto implements Serializable {
 
     private static final long serialVersionUID = -3675411777951570019L;
 
+    private Long memberId;
     private String memberFullName;
     private Double balance;
 
     public MemberDto() {
+    }
+
+    public MemberDto(Long memberId, String memberFullName, Double balance) {
+        this.memberId = memberId;
+        this.memberFullName = memberFullName;
+        this.balance = balance;
     }
 
     public MemberDto(String memberFullName, Double balance) {
@@ -26,11 +33,27 @@ public class MemberDto implements Serializable {
     }
 
     public MemberDto(Member member) {
+        this.setMemberId(member.getMemberId());
         this.setMemberFullName(member.getMemberFullName());
         this.setBalance(member.getBalance());
     }
 
     @ApiModelProperty(position = 1,
+            value = "Member MemberId",
+            name = "Id",
+            notes = "The memberId",
+            dataType = "java.lang.Long",
+            example = "1",
+            required = true)
+    public Long getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
+    }
+
+    @ApiModelProperty(position = 2,
             value = "Member MemberFullName",
             name = "FullName",
             notes = "The member's fullname",
@@ -45,7 +68,7 @@ public class MemberDto implements Serializable {
         this.memberFullName = memberFullName;
     }
 
-    @ApiModelProperty(position = 2,
+    @ApiModelProperty(position = 3,
             value = "Member Balance",
             name = "Balance",
             notes = "The member's balance",
@@ -62,7 +85,7 @@ public class MemberDto implements Serializable {
 
     @JsonIgnore
     public Member getMember(){
-        return new Member(getMemberFullName(), getBalance());
+        return new Member(getMemberId(), getMemberFullName(), getBalance());
     }
 
     @Override
@@ -70,17 +93,18 @@ public class MemberDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MemberDto memberDto = (MemberDto) o;
-        return Objects.equals(memberFullName, memberDto.memberFullName) && Objects.equals(balance, memberDto.balance);
+        return Objects.equals(memberId, memberDto.memberId) && Objects.equals(memberFullName, memberDto.memberFullName) && Objects.equals(balance, memberDto.balance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberFullName, balance);
+        return Objects.hash(memberId, memberFullName, balance);
     }
 
     @Override
     public String toString() {
         return "MemberDto{" +
+                "memberId='" + memberId + '\'' +
                 "memberFullName='" + memberFullName + '\'' +
                 ", balance=" + balance +
                 '}';

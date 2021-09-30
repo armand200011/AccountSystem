@@ -69,9 +69,9 @@ public class AccountTypeControllerTest {
     @Test
     public void getAll() throws Exception {
         try{
-            String expectedResponse = "{\"successful\":true,\"payload\":[{\"accountTypeCode\":\"MILES\",\"accountTypeName\":\"Miles account type\",\"accountTypeDateCreated\":[2021,1,1]}]}";
+            String expectedResponse = "{\"successful\":true,\"payload\":[{\"accountTypeID\":1,\"accountTypeCode\":\"MILES\",\"accountTypeName\":\"Miles account type\",\"accountTypeDateCreated\":[2021,1,1]}]}";
             List<AccountTypeDto> accountTypes = new ArrayList<>();
-            accountTypes.add(new AccountTypeDto("MILES", "Miles account type", LocalDate.parse("2021-01-01")));
+            accountTypes.add(new AccountTypeDto(Long.valueOf(1),"MILES", "Miles account type", LocalDate.parse("2021-01-01")));
             when(fetchAccountTypeFlow.getAllAccountTypes()).thenReturn(accountTypes);
             String val = String.format("%s%s", ACCOUNT_TYPE_CONTROLLER_URL, "/all");
             MvcResult mvcR = mockMvc.perform(get((String.format("%s%s", ACCOUNT_TYPE_CONTROLLER_URL, "/all")))

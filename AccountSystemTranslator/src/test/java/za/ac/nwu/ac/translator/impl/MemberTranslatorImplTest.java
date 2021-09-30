@@ -40,9 +40,9 @@ public class MemberTranslatorImplTest {
     @Test
     public void getAllMembers() {
         try {
-            String expectedResponse = "[MemberDto{memberFullName='null', balance=null}]";
+            String expectedResponse = "[MemberDto{memberId='1'memberFullName='memberFullName', balance=10.0}]";
             List<Member> member = new ArrayList<>();
-            member.add(new Member());
+            member.add(new Member(Long.valueOf(1),"memberFullName", 10.00));
             when(repository.findAll()).thenReturn(member);
             List<MemberDto> res = translator.getAllMembers();
             assertNotNull(res);
@@ -56,7 +56,7 @@ public class MemberTranslatorImplTest {
     @Test
     public void create() {
         try {
-            Member member = new Member("memberFullName", 10.00);
+            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00);
             when(repository.save(any(Member.class))).thenReturn(member);
             MemberDto res = translator.create(new MemberDto(member));
             assertNotNull(res);
@@ -69,8 +69,8 @@ public class MemberTranslatorImplTest {
     @Test
     public void getAccountBalanceNativeQuery() {
         try {
-            String expectedResponse = "MemberDto{memberFullName='null', balance=null}";
-            Member member = new Member();
+            String expectedResponse = "MemberDto{memberId='1'memberFullName='memberFullName', balance=10.0}";
+            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00);
             when(repository.getAccountBalanceNativeQuery(anyString())).thenReturn(member);
             MemberDto res = translator.getAccountBalanceNativeQuery("memberFullName");
             assertNotNull(res);
@@ -84,8 +84,8 @@ public class MemberTranslatorImplTest {
     @Test
     public void addAccountBalance() {
         try {
-            String expectedResponse = "MemberDto{memberFullName='memberFullName', balance=20.0}";
-            Member member = new Member("memberFullName", 10.00);
+            String expectedResponse = "MemberDto{memberId='1'memberFullName='memberFullName', balance=20.0}";
+            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00);
             when(repository.getAccountBalanceNativeQuery(anyString())).thenReturn(member);
             MemberDto res = translator.addAccountBalance("memberFullName", 10.00);
             assertNotNull(res);
@@ -99,8 +99,8 @@ public class MemberTranslatorImplTest {
     @Test
     public void subtractAccountBalance() {
         try {
-            String expectedResponse = "MemberDto{memberFullName='memberFullName', balance=0.0}";
-            Member member = new Member("memberFullName", 10.00);
+            String expectedResponse = "MemberDto{memberId='1'memberFullName='memberFullName', balance=0.0}";
+            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00);
             when(repository.getAccountBalanceNativeQuery(anyString())).thenReturn(member);
             MemberDto res = translator.subtractAccountBalance("memberFullName", 10.00);
             assertNotNull(res);

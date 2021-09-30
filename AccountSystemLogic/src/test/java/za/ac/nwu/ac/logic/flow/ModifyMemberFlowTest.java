@@ -35,8 +35,8 @@ public class ModifyMemberFlowTest {
     @Test
     public void addAccountBalance() {
         try {
-            String expectedResponse = "MemberDto{memberFullName='null', balance=null}";
-            MemberDto memberDto = new MemberDto();
+            String expectedResponse = "MemberDto{memberId='1'memberFullName='JAMMY', balance=50.2}";
+            MemberDto memberDto =new MemberDto(Long.valueOf(1),"JAMMY",50.20);
             when(translator.addAccountBalance(anyString(), anyDouble())).thenReturn(memberDto);
             MemberDto res = flow.addAccountBalance("memberFullName", 10.00);
             assertNotNull(res);
@@ -50,8 +50,8 @@ public class ModifyMemberFlowTest {
     @Test
     public void subtractAccountBalance() {
         try {
-            String expectedResponse = "MemberDto{memberFullName='null', balance=null}";
-            MemberDto memberDto = new MemberDto();
+            String expectedResponse = "MemberDto{memberId='1'memberFullName='JAMMY', balance=50.2}";
+            MemberDto memberDto = new MemberDto(Long.valueOf(1),"JAMMY",50.20);
             when(translator.subtractAccountBalance(anyString(), anyDouble())).thenReturn(memberDto);
             MemberDto res = flow.subtractAccountBalance("memberFullName", 10.00);
             assertNotNull(res);

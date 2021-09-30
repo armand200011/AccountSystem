@@ -39,9 +39,9 @@ public class FetchMemberFlowImplTest {
     @Test
     public void getAllMembers() {
         try {
-            String expectedResponse = "[MemberDto{memberFullName='memberFullName', balance=10.0}]";
+            String expectedResponse = "[MemberDto{memberId='1'memberFullName='memberFullName', balance=10.0}]";
             List<MemberDto> memberDtos = new ArrayList<>();
-            memberDtos.add(new MemberDto("memberFullName", 10.00));
+            memberDtos.add(new MemberDto(Long.valueOf(1),"memberFullName", 10.00));
             when(translator.getAllMembers()).thenReturn(memberDtos);
             List<MemberDto> res = flow.getAllMembers();
             assertNotNull(res);
@@ -55,8 +55,8 @@ public class FetchMemberFlowImplTest {
     @Test
     public void getAccountBalance() {
         try {
-            String expectedResponse = "MemberDto{memberFullName='null', balance=null}";
-            MemberDto memberDto = new MemberDto();
+            String expectedResponse = "MemberDto{memberId='1'memberFullName='memberFullName', balance=10.0}";
+            MemberDto memberDto = new MemberDto(Long.valueOf(1),"memberFullName", 10.00);
             when(translator.getAccountBalanceNativeQuery(anyString())).thenReturn(memberDto);
             MemberDto res = flow.getAccountBalance("memberFullName");
             assertNotNull(res);

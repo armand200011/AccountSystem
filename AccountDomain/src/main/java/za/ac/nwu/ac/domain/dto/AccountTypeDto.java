@@ -14,6 +14,7 @@ public class AccountTypeDto implements Serializable {
 
     private static final long serialVersionUID = -7731154715176897719L;
 
+    private Long accountTypeID;
     private String accountTypeCode;
     private String accountTypeName;
     private LocalDate accountTypeDateCreated;
@@ -21,19 +22,48 @@ public class AccountTypeDto implements Serializable {
     public AccountTypeDto() {
     }
 
-    public AccountTypeDto(String accountTypeCode, String accountTypeName, LocalDate accountTypeDateCreated) {
+    public AccountTypeDto(Long accountTypeID, String accountTypeCode, String accountTypeName, LocalDate accountTypeDateCreated) {
+        this.accountTypeID = accountTypeID;
         this.accountTypeCode = accountTypeCode;
         this.accountTypeName = accountTypeName;
         this.accountTypeDateCreated = accountTypeDateCreated;
     }
 
+    public AccountTypeDto(String accountTypeCode, String accountTypeName, LocalDate accountTypeDateCreated) {
+        this.accountTypeCode = accountTypeCode;
+        this.accountTypeName = accountTypeName;
+        this.accountTypeDateCreated = accountTypeDateCreated;
+    }
+/*
     public AccountTypeDto(AccountType accountType) {
+        this.setAccountTypeName(accountType.getAccountTypeName());
+        this.setAccountTypeDateCreated(accountType.getAccountTypeDateCreated());
+        this.setAccountTypeCode(accountType.getAccountTypeCode());
+    }*/
+
+    public AccountTypeDto(AccountType accountType) {
+        this.setAccountTypeID(accountType.getAccountTypeId());
         this.setAccountTypeName(accountType.getAccountTypeName());
         this.setAccountTypeDateCreated(accountType.getAccountTypeDateCreated());
         this.setAccountTypeCode(accountType.getAccountTypeCode());
     }
 
     @ApiModelProperty(position = 1,
+            value = "AccountType AccountTypeId",
+            name = "AccountTypeId",
+            notes = "Uniquely identifies the account typeId",
+            dataType = "java.lang.Long",
+            example = "1",
+            required = true)
+    public Long getAccountTypeID() {
+        return accountTypeID;
+    }
+
+    public void setAccountTypeID(Long accountTypeID) {
+        this.accountTypeID = accountTypeID;
+    }
+
+    @ApiModelProperty(position = 2,
             value = "AccountType AccountTypeCode",
             name = "AccountTypeCode",
             notes = "Uniquely identifies the account type",
@@ -48,7 +78,7 @@ public class AccountTypeDto implements Serializable {
         this.accountTypeCode = accountTypeCode;
     }
 
-    @ApiModelProperty(position = 2,
+    @ApiModelProperty(position = 3,
             value = "AccountType AccountTypeName",
             name = "AccountTypeName",
             notes = "The name of the account type",
@@ -63,7 +93,7 @@ public class AccountTypeDto implements Serializable {
         this.accountTypeName = accountTypeName;
     }
 
-    @ApiModelProperty(position = 3,
+    @ApiModelProperty(position = 4,
             value = "AccountType AccountTypeDateCreated",
             name = "AccountTypeDateCreated",
             notes = "The data on which the AccountType was created",
@@ -83,22 +113,23 @@ public class AccountTypeDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountTypeDto that = (AccountTypeDto) o;
-        return Objects.equals(accountTypeCode, that.accountTypeCode) && Objects.equals(accountTypeName, that.accountTypeName) && Objects.equals(accountTypeDateCreated, that.accountTypeDateCreated);
+        return Objects.equals(accountTypeID, that.accountTypeID) && Objects.equals(accountTypeCode, that.accountTypeCode) && Objects.equals(accountTypeName, that.accountTypeName) && Objects.equals(accountTypeDateCreated, that.accountTypeDateCreated);
     }
 
     @JsonIgnore
     public AccountType getAccountType(){
-        return new AccountType(getAccountTypeCode(), getAccountTypeName(), getAccountTypeDateCreated());
+        return new AccountType(getAccountTypeID(), getAccountTypeCode(), getAccountTypeName(), getAccountTypeDateCreated());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountTypeCode, accountTypeName, accountTypeDateCreated);
+        return Objects.hash(accountTypeID, accountTypeCode, accountTypeName, accountTypeDateCreated);
     }
 
     @Override
     public String toString() {
         return "AccountTypeDto{" +
+                "accountTypeId='" + accountTypeID + '\'' +
                 "accountTypeCode='" + accountTypeCode + '\'' +
                 ", accountTypeName='" + accountTypeName + '\'' +
                 ", accountTypeDateCreated=" + accountTypeDateCreated +
