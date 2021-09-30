@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AccountTypeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AccountSystemWebSpringBoot</a> &gt; <a href="index.source.html" class="el_package">za.ac.nwu.ac.web.sb.controller</a> &gt; <span class="el_source">AccountTypeController.java</span></div><h1>AccountTypeController.java</h1><pre class="source lang-java linenums">package za.ac.nwu.ac.web.sb.controller;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import za.ac.nwu.ac.domain.service.GeneralResponse;
+import java.util.List;
+import za.ac.nwu.ac.domain.dto.AccountTypeDto;
+import za.ac.nwu.ac.logic.flow.FetchAccountTypeFlow;
+import za.ac.nwu.ac.logic.flow.CreateAccountTypeFlow;
+
+@RestController
+@RequestMapping(&quot;account-type&quot;)
+public class AccountTypeController {
+
+    private final FetchAccountTypeFlow fetchAccountTypeFlow;
+    private final CreateAccountTypeFlow createAccountTypeFlow;
+
+
+    @Autowired
+    public AccountTypeController(FetchAccountTypeFlow fetchAccountTypeFlow,
+<span class="fc" id="L28">                         @Qualifier(&quot;createAccountTypeFlowName&quot;) CreateAccountTypeFlow createAccountTypeFlow){</span>
+<span class="fc" id="L29">        this.fetchAccountTypeFlow = fetchAccountTypeFlow;</span>
+<span class="fc" id="L30">        this.createAccountTypeFlow = createAccountTypeFlow;</span>
+<span class="fc" id="L31">    }</span>
+
+    @GetMapping(&quot;/all&quot;)
+    @ApiOperation(value = &quot;Gets all the configured Account types&quot;, notes = &quot;Returns a list of account types&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = &quot;Account types returned&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = &quot;Not found&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
+    })
+    public ResponseEntity&lt;GeneralResponse&lt;List&lt;AccountTypeDto&gt;&gt;&gt; getAll(){
+<span class="fc" id="L42">        List&lt;AccountTypeDto&gt; accountTypes = fetchAccountTypeFlow.getAllAccountTypes();</span>
+<span class="fc" id="L43">        GeneralResponse&lt;List&lt;AccountTypeDto&gt;&gt; response = new GeneralResponse&lt;&gt;(true, accountTypes);</span>
+<span class="fc" id="L44">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+    }
+
+
+    @PostMapping(&quot;&quot;)
+    @ApiOperation(value = &quot;Create a new accountType&quot;, notes = &quot;Create a new accountType in the database&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = &quot;The accountType was created successfully&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
+    })
+    public ResponseEntity&lt;GeneralResponse&lt;AccountTypeDto&gt;&gt; create(
+            @ApiParam(value = &quot;Request body to create new accountType&quot;, required = true)
+            @RequestBody AccountTypeDto accountType){
+<span class="nc" id="L58">        AccountTypeDto accountTypeResponse = createAccountTypeFlow.create(accountType);</span>
+<span class="nc" id="L59">        GeneralResponse&lt;AccountTypeDto&gt; response = new GeneralResponse&lt;&gt;(true, accountTypeResponse);</span>
+<span class="nc" id="L60">        return new ResponseEntity&lt;&gt;(response, HttpStatus.CREATED);</span>
+    }
+
+    @GetMapping(&quot;{accountTypeCode}&quot;)
+    @ApiOperation(value = &quot;Fetches the specified AccountType&quot;, notes = &quot;Fetches the AccountType corresponding AccountTypeCode&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = &quot;Goal found&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = &quot;Not found&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
+    })
+    public ResponseEntity&lt;GeneralResponse&lt;AccountTypeDto&gt;&gt; getAccountType(
+            @ApiParam(value = &quot;The accountTypeCode that uniquely identifies the AccountType&quot;,
+                    example = &quot;MILES&quot;,
+                    name = &quot;accountTypeCode&quot;,
+                    required = true)
+            @PathVariable(&quot;accountTypeCode&quot;) final String accountTypeCode){
+<span class="nc" id="L77">        AccountTypeDto accountType = fetchAccountTypeFlow.getAccountTypeByAccountTypeCode(accountTypeCode);</span>
+<span class="nc" id="L78">        GeneralResponse&lt;AccountTypeDto&gt; response = new GeneralResponse&lt;&gt;(true,accountType);</span>
+<span class="nc" id="L79">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+    }
+
+
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

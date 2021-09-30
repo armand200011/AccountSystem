@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MemberController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AccountSystemWebSpringBoot</a> &gt; <a href="index.source.html" class="el_package">za.ac.nwu.ac.web.sb.controller</a> &gt; <span class="el_source">MemberController.java</span></div><h1>MemberController.java</h1><pre class="source lang-java linenums">package za.ac.nwu.ac.web.sb.controller;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import za.ac.nwu.ac.domain.dto.AccountTypeDto;
+import za.ac.nwu.ac.domain.dto.MemberDto;
+import za.ac.nwu.ac.domain.service.GeneralResponse;
+import za.ac.nwu.ac.logic.flow.CreateAccountTypeFlow;
+import za.ac.nwu.ac.logic.flow.CreateMemberFlow;
+import za.ac.nwu.ac.logic.flow.FetchMemberFlow;
+import za.ac.nwu.ac.logic.flow.ModifyMemberFlow;
+
+import java.awt.*;
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;member&quot;)
+public class MemberController {
+    private FetchMemberFlow fetchMemberFlow;
+    private CreateMemberFlow createMemberFlow;
+    private ModifyMemberFlow modifyMemberFlow;
+
+
+    @Autowired
+    public MemberController(FetchMemberFlow fetchMemberFlow,
+                 @Qualifier(&quot;createMemberFlowName&quot;) CreateMemberFlow createMemberFlow,
+<span class="nc" id="L34">                            ModifyMemberFlow modifyMemberFlow) {</span>
+
+<span class="nc" id="L36">        this.fetchMemberFlow = fetchMemberFlow;</span>
+<span class="nc" id="L37">        this.createMemberFlow = createMemberFlow;</span>
+<span class="nc" id="L38">        this.modifyMemberFlow = modifyMemberFlow;</span>
+<span class="nc" id="L39">    }</span>
+
+
+    @GetMapping(&quot;/viewAll&quot;)
+    @ApiOperation(value = &quot;Gets all the configured Members from db&quot;, notes = &quot;Returns a list of members&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = &quot;Account types returned&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = &quot;Not found&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
+    })
+    public ResponseEntity&lt;GeneralResponse&lt;List&lt;MemberDto&gt;&gt;&gt; getAll(){
+<span class="nc" id="L51">        List&lt;MemberDto&gt; members = fetchMemberFlow.getAllMembers();</span>
+<span class="nc" id="L52">        GeneralResponse&lt;List&lt;MemberDto&gt;&gt; response = new GeneralResponse&lt;&gt;(true, members);</span>
+<span class="nc" id="L53">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+    }
+
+    @PostMapping(&quot;createNew&quot;)
+    @ApiOperation(value = &quot;Create a new member&quot;, notes = &quot;Create a new member in the database&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = &quot;The member was created successfully&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
+    })
+    public ResponseEntity&lt;GeneralResponse&lt;MemberDto&gt;&gt; create(
+            @ApiParam(value = &quot;Request body to create new member&quot;, required = true)
+            @RequestBody MemberDto member){
+<span class="nc" id="L66">        MemberDto memberResponse = createMemberFlow.create(member);</span>
+<span class="nc" id="L67">        GeneralResponse&lt;MemberDto&gt; response = new GeneralResponse&lt;&gt;(true, memberResponse);</span>
+<span class="nc" id="L68">        return new ResponseEntity&lt;&gt;(response, HttpStatus.CREATED);</span>
+    }
+
+
+
+    @GetMapping(&quot;view/{memberFullName}&quot;)
+    @ApiOperation(value = &quot;Fetches the specified Member&quot;, notes = &quot;Fetches the Member corresponding MemberFullName&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = &quot;Goal found&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = &quot;Not found&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
+    })
+    public ResponseEntity&lt;GeneralResponse&lt;MemberDto&gt;&gt; getAccountBalance(
+            @ApiParam(value = &quot;The memberFullName that uniquely identifies the Member&quot;,
+                    example = &quot;Johan&quot;,
+                    name = &quot;memberFullName&quot;,
+                    required = true)
+            @PathVariable(&quot;memberFullName&quot;)final String memberFullName){
+<span class="nc" id="L87">        MemberDto member = fetchMemberFlow.getAccountBalance(memberFullName);</span>
+<span class="nc" id="L88">        GeneralResponse&lt;MemberDto&gt; response = new GeneralResponse&lt;&gt;(true,member);</span>
+<span class="nc" id="L89">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+    }
+
+
+
+
+    @PutMapping(&quot;addTo/{memberFullName}&quot;)
+    @ApiOperation(value = &quot;Add the specified amount to the Member's balance&quot;, notes = &quot;Add the specified amount to the balance of the Member corresponding MemberFullName&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = &quot;Balance updated&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = &quot;Not found&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
+    })
+    public ResponseEntity&lt;GeneralResponse&lt;MemberDto&gt;&gt; addToMemberBalance(
+            @ApiParam(value = &quot;The memberFullName that uniquely identifies the Member&quot;,
+                    example = &quot;Johan&quot;,
+                    name = &quot;memberFullName&quot;,
+                    required = true)
+            @PathVariable(&quot;memberFullName&quot;)final String memberFullName,
+            @ApiParam(value = &quot;The amount the balance will be increased by for the specified Member&quot;,
+            example = &quot;5.55&quot;,
+            name = &quot;amount&quot;,
+            required = true)
+            @RequestParam(&quot;amount&quot;) final Double amount){
+<span class="nc" id="L114">        MemberDto member = modifyMemberFlow.addAccountBalance(memberFullName,amount);</span>
+<span class="nc" id="L115">        GeneralResponse&lt;MemberDto&gt; response = new GeneralResponse&lt;&gt;(true,member);</span>
+<span class="nc" id="L116">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+    }
+
+
+    @PutMapping(&quot;subtractFrom/{memberFullName}&quot;)
+    @ApiOperation(value = &quot;Subtract the specified amount to the Member's balance&quot;, notes = &quot;Subtract the specified amount to the balance of the Member corresponding MemberFullName&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = &quot;Balance updated&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = &quot;Bad Request&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = &quot;Not found&quot;, response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
+    })
+    public ResponseEntity&lt;GeneralResponse&lt;MemberDto&gt;&gt; subtractToMemberBalance(
+            @ApiParam(value = &quot;The memberFullName that uniquely identifies the Member&quot;,
+                    example = &quot;Johan&quot;,
+                    name = &quot;memberFullName&quot;,
+                    required = true)
+            @PathVariable(&quot;memberFullName&quot;)final String memberFullName,
+            @ApiParam(value = &quot;The amount the balance will be decreased by for the specified Member&quot;,
+                    example = &quot;5.55&quot;,
+                    name = &quot;amount&quot;,
+                    required = true)
+            @RequestParam(&quot;amount&quot;) final Double amount){
+<span class="nc" id="L139">        MemberDto member = modifyMemberFlow.subtractAccountBalance(memberFullName,amount);</span>
+<span class="nc" id="L140">        GeneralResponse&lt;MemberDto&gt; response = new GeneralResponse&lt;&gt;(true,member);</span>
+<span class="nc" id="L141">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
