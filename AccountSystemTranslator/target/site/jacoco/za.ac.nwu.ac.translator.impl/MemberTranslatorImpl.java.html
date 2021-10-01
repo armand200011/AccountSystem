@@ -62,8 +62,8 @@ public class MemberTranslatorImpl implements MemberTranslator {
 <span class="fc" id="L62">            Member member = memberRepository.getAccountBalanceNativeQuery(memberFullName);</span>
 <span class="fc" id="L63">            member.setBalance((member.getBalance() + amount));</span>
 <span class="fc" id="L64">            return new MemberDto(member);</span>
-<span class="nc" id="L65">        } catch (Exception e) {</span>
-<span class="nc" id="L66">            throw new RuntimeException(&quot;Could not add the desired amount to the account balance&quot;, e);</span>
+<span class="fc" id="L65">        } catch (Exception e) {</span>
+<span class="fc" id="L66">            throw new RuntimeException(&quot;Could not add the desired amount to the account balance&quot;, e);</span>
         }
     }
 

@@ -83,6 +83,21 @@ public class MemberTranslatorImplTest {
         }
     }
 
+
+    @Test
+    public void addAccountBalanceError() {
+        try {
+            String expectedResponse = "MemberDto{memberId=1, memberFullName='memberFullName', balance=20.0, accountTypeId=1, accountTypeCode='MILES'}";
+            Member member =new Member(Long.valueOf(1),"memberFullName", 10.00,new AccountType(Long.valueOf(1),"MILES","miles",LocalDate.now()));
+            //when(repository.getAccountBalanceNativeQuery(anyString())).thenReturn(member);
+            MemberDto res = translator.addAccountBalance(null,null);
+            assertNotNull(res);
+            //verify(repository, atLeastOnce()).getAccountBalanceNativeQuery(anyString());
+            assertEquals(expectedResponse, res.toString());
+        } catch (Exception e) {
+            assertFalse("Error message not as expected", e.getMessage().equalsIgnoreCase("Some reason the CreateMemberFlowImplTest could not complete"));
+        }
+    }
     @Test
     public void addAccountBalance() {
         try {

@@ -1,5 +1,7 @@
 package za.ac.nwu.ac.logic.flow.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.ac.domain.dto.AccountTypeDto;
@@ -15,8 +17,9 @@ import java.util.List;
 @Component
 public class FetchMemberFlowImpl implements FetchMemberFlow {
 
-
     private final MemberTranslator memberTranslator;
+    private static final Logger LOGGER = LoggerFactory.getLogger(FetchMemberFlowImpl.class);
+
     @Autowired
     public FetchMemberFlowImpl(MemberTranslator memberTranslator) {
         this.memberTranslator = memberTranslator;
@@ -29,6 +32,7 @@ public class FetchMemberFlowImpl implements FetchMemberFlow {
 
     @Override
     public MemberDto getAccountBalance(String memberFullName) {
+        LOGGER.info("Input: {}", memberFullName);
         return memberTranslator.getAccountBalanceNativeQuery(memberFullName);
     }
 }

@@ -50,32 +50,53 @@ public class AccountTypeTranslatorImplTest {
             assertFalse("Error message not as expected", e.getMessage().equalsIgnoreCase("Some reason the CreateMemberFlowImplTest could not complete"));
         }
     }
+    @Test(expected = RuntimeException.class)
+    public void createError() {
+
+        String expectedResponse = "AccountTypeDto{accountTypeId='1'accountTypeCode='MILES', accountTypeName='Miles', accountTypeDateCreated="+LocalDate.now()+"}";
+
+        AccountType accountTypeDto = new AccountType(Long.valueOf(1),"MILES","Miles",LocalDate.now());
+       // when(repository.save(any(AccountType.class))).thenReturn(accountTypeDto);
+        AccountTypeDto res = translator.create(null);
+        assertNotNull(res);
+        //verify(repository, atLeastOnce()).save(any(AccountType.class));
+        assertEquals(expectedResponse, res.toString());
+
+    }
 
     @Test
     public void create() {
-        try {
-            AccountType accountTypeDto = new AccountType("accountTypeCode", "accountTypeName", LocalDate.parse("2021-01-1"));
+
+            String expectedResponse = "AccountTypeDto{accountTypeId='1'accountTypeCode='MILES', accountTypeName='Miles', accountTypeDateCreated="+LocalDate.now()+"}";
+
+            AccountType accountTypeDto = new AccountType(Long.valueOf(1),"MILES","Miles",LocalDate.now());
             when(repository.save(any(AccountType.class))).thenReturn(accountTypeDto);
             AccountTypeDto res = translator.create(new AccountTypeDto());
             assertNotNull(res);
             verify(repository, atLeastOnce()).save(any(AccountType.class));
-        } catch (Exception e) {
-            assertFalse("Error message not as expected", e.getMessage().equalsIgnoreCase("Some reason the CreateMemberFlowImplTest could not complete"));
-        }
-    }
+            assertEquals(expectedResponse, res.toString());
 
+    }
     @Test
     public void getAccountTypeByAccountTypeCodeNativeQuery() {
-        try {
+        String expectedResponse = "AccountTypeDto{accountTypeId='1'accountTypeCode='MILES', accountTypeName='Miles', accountTypeDateCreated="+LocalDate.now()+"}";
+        AccountType accountTypeDto = new AccountType(Long.valueOf(1),"MILES","Miles",LocalDate.now());
+        when(repository.getAccountTypeByAccountTypeCodeNativeQuery(anyString())).thenReturn(accountTypeDto);
+        AccountTypeDto res = translator.getAccountTypeByAccountTypeCodeNativeQuery("memberFullName");
+        assertNotNull(res);
+        verify(repository, atLeastOnce()).getAccountTypeByAccountTypeCodeNativeQuery(anyString());
+        assertEquals(expectedResponse, res.toString());
+
+    }
+    @Test(expected = RuntimeException.class)
+    public void getAccountTypeByAccountTypeCodeNativeQueryError() {
             String expectedResponse = "AccountTypeDto{accountTypeId='1'accountTypeCode='MILES', accountTypeName='Miles', accountTypeDateCreated="+LocalDate.now()+"}";
             AccountType accountTypeDto = new AccountType(Long.valueOf(1),"MILES","Miles",LocalDate.now());
-            when(repository.getAccountTypeByAccountTypeCodeNativeQuery(anyString())).thenReturn(accountTypeDto);
-            AccountTypeDto res = translator.getAccountTypeByAccountTypeCodeNativeQuery("memberFullName");
+            //when(repository.getAccountTypeByAccountTypeCodeNativeQuery(anyString())).thenReturn(accountTypeDto);
+            AccountTypeDto res = translator.getAccountTypeByAccountTypeCodeNativeQuery(null);
             assertNotNull(res);
-            verify(repository, atLeastOnce()).getAccountTypeByAccountTypeCodeNativeQuery(anyString());
+          //  verify(repository, atLeastOnce()).getAccountTypeByAccountTypeCodeNativeQuery(anyString());
             assertEquals(expectedResponse, res.toString());
-        } catch (Exception e) {
-            assertFalse("Error message not as expected", e.getMessage().equalsIgnoreCase("Some reason the CreateMemberFlowImplTest could not complete"));
-        }
+
     }
 }

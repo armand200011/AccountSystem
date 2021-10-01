@@ -1,5 +1,7 @@
 package za.ac.nwu.ac.logic.flow.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.ac.domain.dto.AccountTypeDto;
@@ -15,6 +17,7 @@ public class FetchAccountTypeFlowImpl implements FetchAccountTypeFlow {
 
 
     private final AccountTypeTranslator accountTypeTranslator;
+    private static final Logger LOGGER = LoggerFactory.getLogger(FetchAccountTypeFlowImpl.class);
 
     @Autowired
     public FetchAccountTypeFlowImpl(AccountTypeTranslator accountTypeTranslator){
@@ -28,6 +31,7 @@ public class FetchAccountTypeFlowImpl implements FetchAccountTypeFlow {
 
     @Override
     public AccountTypeDto getAccountTypeByAccountTypeCode(String accountTypeCode) {
+        LOGGER.info("Input: {}", accountTypeCode);
         return accountTypeTranslator.getAccountTypeByAccountTypeCodeNativeQuery(accountTypeCode);
     }
 }
