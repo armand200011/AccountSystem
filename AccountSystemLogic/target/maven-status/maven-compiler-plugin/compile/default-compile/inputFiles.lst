@@ -10,5 +10,6 @@ C:\Users\Armand\IdeaProjects\AccountSystem\AccountSystemLogic\src\main\java\za\a
 C:\Users\Armand\IdeaProjects\AccountSystem\AccountSystemLogic\src\main\java\za\ac\nwu\ac\logic\flow\impl\CreateAccountTypeFlowImpl.java
 C:\Users\Armand\IdeaProjects\AccountSystem\AccountSystemLogic\src\main\java\za\ac\nwu\ac\logic\flow\FetchMemberFlow.java
 C:\Users\Armand\IdeaProjects\AccountSystem\AccountSystemLogic\src\main\java\za\ac\nwu\ac\logic\flow\impl\FetchMemberFlowImpl.java
+C:\Users\Armand\IdeaProjects\AccountSystem\AccountSystemLogic\src\main\java\za\ac\nwu\ac\logic\flow\impl\FetchAccountTransactionFlowImpl.java
 C:\Users\Armand\IdeaProjects\AccountSystem\AccountSystemLogic\src\main\java\za\ac\nwu\ac\logic\flow\FetchAccountTransactionFlow.java
 C:\Users\Armand\IdeaProjects\AccountSystem\AccountSystemLogic\src\main\java\za\ac\nwu\ac\logic\flow\ModifyMemberFlow.java

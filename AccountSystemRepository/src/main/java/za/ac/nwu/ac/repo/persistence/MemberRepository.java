@@ -10,6 +10,7 @@ import za.ac.nwu.ac.domain.persistence.Member;
 public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query(value = "SELECT "+
             "   MEMBER_ID,"+
+            "   ACCOUNT_TYPE_ID,"+
             "   MEMBER_FULLNAME,"+
             "   BALANCE"+
             "   FROM "+

@@ -16,9 +16,18 @@ public class Member implements Serializable {
     private String memberFullName;
     private Double balance;
 
-    private Set<AccountTransaction> accountTransactions;
+    private AccountType accountType;
+
+//  private Set<AccountType> accountTypes;
 
     public Member() {
+    }
+
+    public Member(Long memberId, String memberFullName, Double balance, AccountType accountType) {
+        this.memberId = memberId;
+        this.memberFullName = memberFullName;
+        this.balance = balance;
+        this.accountType = accountType;
     }
 
     public Member(String memberFullName, Double balance) {
@@ -31,6 +40,12 @@ public class Member implements Serializable {
         this.memberFullName = memberFullName;
         this.balance = balance;
     }
+
+    public Member(Long memberId, String memberFullName) {
+        this.memberId = memberId;
+        this.memberFullName = memberFullName;
+    }
+
     @Id
     @SequenceGenerator(name = "MEMBER_GENERIC_SEQ", sequenceName = "ARMAND.MEMBER_GENERIC_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_GENERIC_SEQ")
@@ -66,21 +81,22 @@ public class Member implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        return Objects.equals(memberId, member.memberId) && Objects.equals(memberFullName, member.memberFullName) && Objects.equals(balance, member.balance);
+        return Objects.equals(memberId, member.memberId) && Objects.equals(memberFullName, member.memberFullName) && Objects.equals(balance, member.balance)&&Objects.equals(accountType, member.accountType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberId, memberFullName, balance);
+        return Objects.hash(memberId, memberFullName, balance,accountType);
     }
 
-    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "member", orphanRemoval = true, cascade = CascadeType.PERSIST)
-    public Set<AccountTransaction> getAccountTransactions(){
-        return accountTransactions;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ACCOUNT_TYPE_ID")
+    public AccountType getAccountType() {
+        return accountType;
     }
 
-    public void setAccountTransactions(Set<AccountTransaction> accountTransactions){
-        this.accountTransactions = accountTransactions;
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
     }
 
     @Override
@@ -88,7 +104,8 @@ public class Member implements Serializable {
         return "Member{" +
                 "memberId=" + memberId +
                 ", memberFullName='" + memberFullName + '\'' +
-                ", balance=" + String.format("%.2f", balance) +
+                ", balance=" + balance +
+                ", accountType=" + accountType +
                 '}';
     }
 }

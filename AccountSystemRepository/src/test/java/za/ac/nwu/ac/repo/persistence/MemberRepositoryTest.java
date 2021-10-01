@@ -33,7 +33,7 @@ public class MemberRepositoryTest {
 
     @Test
     public void getAccountBalanceNativeQuery() {
-        Member miles = memberRepository.getAccountBalanceNativeQuery("MILESSS");
-        assertNull(miles);
+        Member miles = memberRepository.getAccountBalanceNativeQuery("Smith");
+        assertNotNull(miles);
     }
 }

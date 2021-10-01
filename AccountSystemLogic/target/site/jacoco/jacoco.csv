@@ -4,5 +4,6 @@ AccountSystemLogic,za.ac.nwu.ac.logic.flow.impl,CreateAccountTypeFlowImpl,0,18,1
 AccountSystemLogic,za.ac.nwu.ac.logic.flow.impl,FetchMemberFlowImpl,0,15,0,0,0,5,0,3,0,3
 AccountSystemLogic,za.ac.nwu.ac.logic.flow.impl,FetchAccountTypeFlowImpl,0,15,0,0,0,5,0,3,0,3
 AccountSystemLogic,za.ac.nwu.ac.logic.flow.impl,CreateAccountTransactionFlowImpl,3,0,0,0,1,0,1,0,1,0
+AccountSystemLogic,za.ac.nwu.ac.logic.flow.impl,FetchAccountTransactionFlowImpl,7,0,0,0,3,0,3,0,3,0
 AccountSystemLogic,za.ac.nwu.ac.logic.flow.impl,CreateMemberFlowImpl,0,19,1,1,0,6,1,2,0,2
 AccountSystemLogic,za.ac.nwu.ac.logic.flow.impl,ModifyMemberFlowImpl,0,18,0,0,0,5,0,3,0,3

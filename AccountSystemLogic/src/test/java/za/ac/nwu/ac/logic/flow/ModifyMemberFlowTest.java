@@ -9,8 +9,12 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
 import za.ac.nwu.ac.domain.dto.MemberDto;
+import za.ac.nwu.ac.domain.persistence.AccountType;
+import za.ac.nwu.ac.domain.persistence.Member;
 import za.ac.nwu.ac.logic.flow.impl.ModifyMemberFlowImpl;
 import za.ac.nwu.ac.translator.MemberTranslator;
+
+import java.time.LocalDate;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -35,8 +39,10 @@ public class ModifyMemberFlowTest {
     @Test
     public void addAccountBalance() {
         try {
-            String expectedResponse = "MemberDto{memberId='1'memberFullName='JAMMY', balance=50.2}";
-            MemberDto memberDto =new MemberDto(Long.valueOf(1),"JAMMY",50.20);
+            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00,new AccountType(Long.valueOf(1),"MILES","miles", LocalDate.now()));
+
+            String expectedResponse = "MemberDto{memberId=1, memberFullName='memberFullName', balance=10.0, accountTypeId=1, accountTypeCode='MILES'}";
+            MemberDto memberDto =new MemberDto(member);
             when(translator.addAccountBalance(anyString(), anyDouble())).thenReturn(memberDto);
             MemberDto res = flow.addAccountBalance("memberFullName", 10.00);
             assertNotNull(res);
@@ -50,8 +56,10 @@ public class ModifyMemberFlowTest {
     @Test
     public void subtractAccountBalance() {
         try {
-            String expectedResponse = "MemberDto{memberId='1'memberFullName='JAMMY', balance=50.2}";
-            MemberDto memberDto = new MemberDto(Long.valueOf(1),"JAMMY",50.20);
+            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00,new AccountType(Long.valueOf(1),"MILES","miles",LocalDate.now()));
+
+            String expectedResponse = "MemberDto{memberId=1, memberFullName='memberFullName', balance=10.0, accountTypeId=1, accountTypeCode='MILES'}";
+            MemberDto memberDto = new MemberDto(member);
             when(translator.subtractAccountBalance(anyString(), anyDouble())).thenReturn(memberDto);
             MemberDto res = flow.subtractAccountBalance("memberFullName", 10.00);
             assertNotNull(res);

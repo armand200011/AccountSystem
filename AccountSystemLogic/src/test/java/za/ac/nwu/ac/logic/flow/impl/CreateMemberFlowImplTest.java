@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import za.ac.nwu.ac.domain.dto.AccountTypeDto;
 import za.ac.nwu.ac.domain.dto.MemberDto;
+import za.ac.nwu.ac.domain.persistence.AccountType;
+import za.ac.nwu.ac.domain.persistence.Member;
 import za.ac.nwu.ac.translator.AccountTypeTranslator;
 import za.ac.nwu.ac.translator.MemberTranslator;
 import za.ac.nwu.ac.translator.impl.MemberTranslatorImpl;
@@ -38,7 +40,9 @@ public class CreateMemberFlowImplTest {
     @Test
     public void create() {
         try {
-            MemberDto memberDto = new MemberDto("memberFullname",  50.55);
+            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00,new AccountType(Long.valueOf(1),"MILES","miles",LocalDate.now()));
+
+            MemberDto memberDto = new MemberDto(member);
             when(translator.create(any(MemberDto.class))).thenReturn(memberDto);
             MemberDto res = flow.create(new MemberDto());
             assertNotNull(res);

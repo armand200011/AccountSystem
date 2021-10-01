@@ -31,6 +31,11 @@ public class AccountType implements Serializable {
         this.accountTypeDateCreated = accountTypeDateCreated;
     }
 
+    public AccountType(Long accountTypeId, String accountTypeCode) {
+        this.accountTypeId = accountTypeId;
+        this.accountTypeCode = accountTypeCode;
+    }
+
     public AccountType(Long accountTypeId, String accountTypeCode, String accountTypeName, LocalDate accountTypeDateCreated) {
         this.accountTypeId = accountTypeId;
         this.accountTypeCode = accountTypeCode;
@@ -77,7 +82,7 @@ public class AccountType implements Serializable {
         this.accountTypeDateCreated = accountTypeDateCreated;
     }
 
-    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(targetEntity = Member.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade = CascadeType.PERSIST)
     public Set<AccountTransaction> getAccountTransactions() {
         return accountTransactions;
     }

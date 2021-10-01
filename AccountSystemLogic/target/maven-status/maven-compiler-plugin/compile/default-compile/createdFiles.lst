@@ -10,5 +10,6 @@ za\ac\nwu\ac\logic\flow\FetchAccountTransactionFlow.class
 za\ac\nwu\ac\logic\flow\impl\ModifyMemberFlowImpl.class
 za\ac\nwu\ac\logic\flow\impl\CreateAccountTransactionFlowImpl.class
 za\ac\nwu\ac\logic\flow\impl\FetchAccountTypeFlowImpl.class
+za\ac\nwu\ac\logic\flow\impl\FetchAccountTransactionFlowImpl.class
 za\ac\nwu\ac\logic\flow\CreateAccountTypeFlow.class
 za\ac\nwu\ac\logic\flow\impl\CreateAccountTypeFlowImpl.class

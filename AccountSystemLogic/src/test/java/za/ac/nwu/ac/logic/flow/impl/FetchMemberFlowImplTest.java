@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import za.ac.nwu.ac.domain.dto.AccountTypeDto;
 import za.ac.nwu.ac.domain.dto.MemberDto;
+import za.ac.nwu.ac.domain.persistence.AccountType;
+import za.ac.nwu.ac.domain.persistence.Member;
 import za.ac.nwu.ac.translator.AccountTypeTranslator;
 import za.ac.nwu.ac.translator.MemberTranslator;
 
@@ -39,9 +41,11 @@ public class FetchMemberFlowImplTest {
     @Test
     public void getAllMembers() {
         try {
-            String expectedResponse = "[MemberDto{memberId='1'memberFullName='memberFullName', balance=10.0}]";
+            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00,new AccountType(Long.valueOf(1),"MILES","miles",LocalDate.now()));
+
+            String expectedResponse = "[MemberDto{memberId=1, memberFullName='memberFullName', balance=10.0, accountTypeId=1, accountTypeCode='MILES'}]";
             List<MemberDto> memberDtos = new ArrayList<>();
-            memberDtos.add(new MemberDto(Long.valueOf(1),"memberFullName", 10.00));
+            memberDtos.add(new MemberDto(member));
             when(translator.getAllMembers()).thenReturn(memberDtos);
             List<MemberDto> res = flow.getAllMembers();
             assertNotNull(res);
@@ -55,8 +59,10 @@ public class FetchMemberFlowImplTest {
     @Test
     public void getAccountBalance() {
         try {
-            String expectedResponse = "MemberDto{memberId='1'memberFullName='memberFullName', balance=10.0}";
-            MemberDto memberDto = new MemberDto(Long.valueOf(1),"memberFullName", 10.00);
+            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00,new AccountType(Long.valueOf(1),"MILES","miles",LocalDate.now()));
+
+            String expectedResponse = "MemberDto{memberId=1, memberFullName='memberFullName', balance=10.0, accountTypeId=1, accountTypeCode='MILES'}";
+            MemberDto memberDto = new MemberDto(member);
             when(translator.getAccountBalanceNativeQuery(anyString())).thenReturn(memberDto);
             MemberDto res = flow.getAccountBalance("memberFullName");
             assertNotNull(res);
