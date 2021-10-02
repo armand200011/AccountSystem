@@ -10,6 +10,7 @@ import za.ac.nwu.ac.repo.persistence.AccountTypeRepository;
 import za.ac.nwu.ac.repo.persistence.MemberRepository;
 import za.ac.nwu.ac.translator.MemberTranslator;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,9 +58,10 @@ public class MemberTranslatorImpl implements MemberTranslator {
     }
 
     @Override
-    public MemberDto addAccountBalance(String memberFullName, Double amount) {
+    public MemberDto addAccountBalance(String memberFullName, Double amount, LocalDate date) {
         try {
             Member member = memberRepository.getAccountBalanceNativeQuery(memberFullName);
+            member.setMemberDate(date);
             member.setBalance((member.getBalance() + amount));
             return new MemberDto(member);
         } catch (Exception e) {
@@ -68,9 +70,10 @@ public class MemberTranslatorImpl implements MemberTranslator {
     }
 
     @Override
-    public MemberDto subtractAccountBalance(String memberFullName, Double amount) {
+    public MemberDto subtractAccountBalance(String memberFullName, Double amount, LocalDate date) {
         try {
             Member member = memberRepository.getAccountBalanceNativeQuery(memberFullName);
+            member.setMemberDate(date);
             member.setBalance((member.getBalance() - amount));
             return new MemberDto(member);
         } catch (Exception e) {

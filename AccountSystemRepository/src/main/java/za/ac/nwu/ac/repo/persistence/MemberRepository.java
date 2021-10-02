@@ -12,7 +12,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
             "   MEMBER_ID,"+
             "   ACCOUNT_TYPE_ID,"+
             "   MEMBER_FULLNAME,"+
-            "   BALANCE"+
+            "   BALANCE,"+
+            "   MEMBER_DATE"+
             "   FROM "+
             "   ARMAND.ACCOUNT_MEMBER "+
             "   WHERE MEMBER_FULLNAME = :memberFullName", nativeQuery =true)

@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import za.ac.nwu.ac.logic.flow.FetchMemberFlow;
 import za.ac.nwu.ac.logic.flow.ModifyMemberFlow;
 
 import java.awt.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -110,8 +112,13 @@ public class MemberController {
             example = "5.55",
             name = "amount",
             required = true)
-            @RequestParam("amount") final Double amount){
-        MemberDto member = modifyMemberFlow.addAccountBalance(memberFullName,amount);
+            @RequestParam("amount") final Double amount,
+            @ApiParam(value = "The date on which the accounts balance will be increases. The date will be ISO format {yyyy-MM-dd}\n\rIf no date is inserted the member balance will be increased today",
+                    name = "date")
+            @RequestParam(value = "date", required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            LocalDate date){
+        MemberDto member = modifyMemberFlow.addAccountBalance(memberFullName,amount, date);
         GeneralResponse<MemberDto> response = new GeneralResponse<>(true,member);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -135,8 +142,13 @@ public class MemberController {
                     example = "5.55",
                     name = "amount",
                     required = true)
-            @RequestParam("amount") final Double amount){
-        MemberDto member = modifyMemberFlow.subtractAccountBalance(memberFullName,amount);
+            @RequestParam("amount") final Double amount,
+            @ApiParam(value = "The date on which the accounts balance will be subtracted. The date will be ISO format {yyyy-MM-dd}\n\rIf no date is inserted the member balance will be subtracted today",
+                    name = "date")
+            @RequestParam(value = "date", required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                    LocalDate date) {
+        MemberDto member = modifyMemberFlow.subtractAccountBalance(memberFullName,amount, date);
         GeneralResponse<MemberDto> response = new GeneralResponse<>(true,member);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

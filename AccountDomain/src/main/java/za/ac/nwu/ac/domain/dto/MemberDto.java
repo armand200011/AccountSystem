@@ -7,6 +7,7 @@ import za.ac.nwu.ac.domain.persistence.AccountType;
 import za.ac.nwu.ac.domain.persistence.Member;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @ApiModel(value = "Member", description = "A DTO that represents a Member")
@@ -20,16 +21,18 @@ public class MemberDto implements Serializable {
     private Double balance;
     private Long accountTypeId;
     private String accountTypeCode;
+    private LocalDate memberDate;
 
 
-
-    public MemberDto(Long memberId, String memberFullName, Double balance, Long accountTypeId, String accountTypeCode) {
+    public MemberDto(Long memberId, String memberFullName, Double balance, Long accountTypeId, String accountTypeCode, LocalDate memberDate) {
         this.memberId = memberId;
         this.memberFullName = memberFullName;
         this.balance = balance;
         this.accountTypeId = accountTypeId;
         this.accountTypeCode = accountTypeCode;
+        this.memberDate = memberDate;
     }
+
 
     public MemberDto() {
     }
@@ -51,6 +54,7 @@ public class MemberDto implements Serializable {
         this.setBalance(member.getBalance());
         this.setAccountTypeId(member.getAccountType().getAccountTypeId());
         this.setAccountTypeCode(member.getAccountType().getAccountTypeCode());
+        this.setMemberDate(member.getMemberDate());
     }
 
     @ApiModelProperty(position = 1,
@@ -73,7 +77,7 @@ public class MemberDto implements Serializable {
             name = "FullName",
             notes = "The member's fullname",
             dataType = "java.lang.String",
-            example = "Armand de Beer",
+            example = "Johan",
             required = true)
     public String getMemberFullName() {
         return memberFullName;
@@ -98,6 +102,13 @@ public class MemberDto implements Serializable {
         this.balance = balance;
     }
 
+    @ApiModelProperty(position = 4,
+            value = "AccountType AccountTypeId",
+            name = "AccountTypeId",
+            notes = "Uniquely identifies the account typeId",
+            dataType = "java.lang.Long",
+            example = "1",
+            required = true)
     public Long getAccountTypeId() {
         return accountTypeId;
     }
@@ -106,6 +117,13 @@ public class MemberDto implements Serializable {
         this.accountTypeId = accountTypeId;
     }
 
+    @ApiModelProperty(position = 5,
+            value = "AccountType AccountTypeCode",
+            name = "AccountTypeCode",
+            notes = "Uniquely identifies the account type",
+            dataType = "java.lang.String",
+            example = "MILES",
+            required = true)
     public String getAccountTypeCode() {
         return accountTypeCode;
     }
@@ -121,7 +139,22 @@ public class MemberDto implements Serializable {
 
     @JsonIgnore
     public Member getMember(){
-        return new Member(getMemberId(), getMemberFullName(), getBalance(),getAccountType());
+        return new Member(getMemberId(), getMemberFullName(), getBalance(),getAccountType(), getMemberDate());
+    }
+
+    @ApiModelProperty(position = 6,
+            value = "Member memberDate",
+            name = "MemberDate",
+            notes = "The date the balance was last updated",
+            dataType = "java.lang.String",
+            example = "2021-01-01",
+            allowEmptyValue = true)
+    public LocalDate getMemberDate() {
+        return memberDate;
+    }
+
+    public void setMemberDate(LocalDate memberDate) {
+        this.memberDate = memberDate;
     }
 
     @Override
@@ -129,12 +162,12 @@ public class MemberDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MemberDto memberDto = (MemberDto) o;
-        return Objects.equals(memberId, memberDto.memberId) && Objects.equals(memberFullName, memberDto.memberFullName) && Objects.equals(balance, memberDto.balance) && Objects.equals(accountTypeId, memberDto.accountTypeId) && Objects.equals(accountTypeCode, memberDto.accountTypeCode);
+        return Objects.equals(memberId, memberDto.memberId) && Objects.equals(memberFullName, memberDto.memberFullName) && Objects.equals(balance, memberDto.balance) && Objects.equals(accountTypeId, memberDto.accountTypeId) && Objects.equals(accountTypeCode, memberDto.accountTypeCode) && Objects.equals(memberDate, memberDto.memberDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberId, memberFullName, balance, accountTypeId, accountTypeCode);
+        return Objects.hash(memberId, memberFullName, balance, accountTypeId, accountTypeCode, memberDate);
     }
 
     @Override
@@ -145,6 +178,7 @@ public class MemberDto implements Serializable {
                 ", balance=" + balance +
                 ", accountTypeId=" + accountTypeId +
                 ", accountTypeCode='" + accountTypeCode + '\'' +
+                ", memberDate=" + memberDate +
                 '}';
     }
 }

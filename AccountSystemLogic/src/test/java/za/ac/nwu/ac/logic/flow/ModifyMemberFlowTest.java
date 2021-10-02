@@ -39,14 +39,14 @@ public class ModifyMemberFlowTest {
     @Test
     public void addAccountBalance() {
         try {
-            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00,new AccountType(Long.valueOf(1),"MILES","miles", LocalDate.now()));
+            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00,new AccountType(Long.valueOf(1),"MILES","miles"), LocalDate.parse("2021-10-02"));
 
-            String expectedResponse = "MemberDto{memberId=1, memberFullName='memberFullName', balance=10.0, accountTypeId=1, accountTypeCode='MILES'}";
+            String expectedResponse = "MemberDto{memberId=1, memberFullName='memberFullName', balance=10.0, accountTypeId=1, accountTypeCode='MILES', memberDate=2021-10-02}";
             MemberDto memberDto =new MemberDto(member);
-            when(translator.addAccountBalance(anyString(), anyDouble())).thenReturn(memberDto);
-            MemberDto res = flow.addAccountBalance("memberFullName", 10.00);
+            when(translator.addAccountBalance(anyString(), anyDouble(), any(LocalDate.class))).thenReturn(memberDto);
+            MemberDto res = flow.addAccountBalance("memberFullName", 10.00, LocalDate.parse("2021-01-01"));
             assertNotNull(res);
-            verify(translator, atLeastOnce()).addAccountBalance(anyString(), anyDouble());
+            verify(translator, atLeastOnce()).addAccountBalance(anyString(), anyDouble(), any(LocalDate.class));
             assertEquals(expectedResponse, res.toString());
         } catch (Exception e) {
             assertFalse("Error message not as expected", e.getMessage().equalsIgnoreCase("Some reason the CreateMemberFlowImplTest could not complete"));
@@ -56,14 +56,14 @@ public class ModifyMemberFlowTest {
     @Test
     public void subtractAccountBalance() {
         try {
-            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00,new AccountType(Long.valueOf(1),"MILES","miles",LocalDate.now()));
+            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00,new AccountType(Long.valueOf(1),"MILES","miles"),LocalDate.parse("2021-10-02"));
 
-            String expectedResponse = "MemberDto{memberId=1, memberFullName='memberFullName', balance=10.0, accountTypeId=1, accountTypeCode='MILES'}";
+            String expectedResponse = "MemberDto{memberId=1, memberFullName='memberFullName', balance=10.0, accountTypeId=1, accountTypeCode='MILES', memberDate=2021-10-02}";
             MemberDto memberDto = new MemberDto(member);
-            when(translator.subtractAccountBalance(anyString(), anyDouble())).thenReturn(memberDto);
-            MemberDto res = flow.subtractAccountBalance("memberFullName", 10.00);
+            when(translator.subtractAccountBalance(anyString(), anyDouble(), any(LocalDate.class))).thenReturn(memberDto);
+            MemberDto res = flow.subtractAccountBalance("memberFullName", 10.00, LocalDate.parse("2021-01-01"));
             assertNotNull(res);
-            verify(translator, atLeastOnce()).subtractAccountBalance(anyString(), anyDouble());
+            verify(translator, atLeastOnce()).subtractAccountBalance(anyString(), anyDouble(), any(LocalDate.class));
             assertEquals(expectedResponse, res.toString());
         } catch (Exception e) {
             assertFalse("Error message not as expected", e.getMessage().equalsIgnoreCase("Some reason the CreateMemberFlowImplTest could not complete"));

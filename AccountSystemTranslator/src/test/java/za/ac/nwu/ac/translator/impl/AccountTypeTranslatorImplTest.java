@@ -38,9 +38,9 @@ public class AccountTypeTranslatorImplTest {
     @Test
     public void getAllAccountTypes() {
         try {
-            String expectedResponse = "[AccountTypeDto{accountTypeId='1'accountTypeCode='MILES', accountTypeName='Miles', accountTypeDateCreated="+LocalDate.now()+"}]";
+            String expectedResponse = "[AccountTypeDto{accountTypeId='1'accountTypeCode='MILES', accountTypeName='Miles'}]";
             List<AccountType> accountType = new ArrayList<>();
-            accountType.add(new AccountType(Long.valueOf(1),"MILES","Miles",LocalDate.now()));
+            accountType.add(new AccountType(Long.valueOf(1),"MILES","Miles"));
             when(repository.findAll()).thenReturn(accountType);
             List<AccountTypeDto> res = translator.getAllAccountTypes();
             assertNotNull(res);
@@ -55,7 +55,7 @@ public class AccountTypeTranslatorImplTest {
 
         String expectedResponse = "AccountTypeDto{accountTypeId='1'accountTypeCode='MILES', accountTypeName='Miles', accountTypeDateCreated="+LocalDate.now()+"}";
 
-        AccountType accountTypeDto = new AccountType(Long.valueOf(1),"MILES","Miles",LocalDate.now());
+        AccountType accountTypeDto = new AccountType(Long.valueOf(1),"MILES","Miles");
        // when(repository.save(any(AccountType.class))).thenReturn(accountTypeDto);
         AccountTypeDto res = translator.create(null);
         assertNotNull(res);
@@ -67,9 +67,9 @@ public class AccountTypeTranslatorImplTest {
     @Test
     public void create() {
 
-            String expectedResponse = "AccountTypeDto{accountTypeId='1'accountTypeCode='MILES', accountTypeName='Miles', accountTypeDateCreated="+LocalDate.now()+"}";
+            String expectedResponse = "AccountTypeDto{accountTypeId='1'accountTypeCode='MILES', accountTypeName='Miles'}";
 
-            AccountType accountTypeDto = new AccountType(Long.valueOf(1),"MILES","Miles",LocalDate.now());
+            AccountType accountTypeDto = new AccountType(Long.valueOf(1),"MILES","Miles");
             when(repository.save(any(AccountType.class))).thenReturn(accountTypeDto);
             AccountTypeDto res = translator.create(new AccountTypeDto());
             assertNotNull(res);
@@ -79,8 +79,8 @@ public class AccountTypeTranslatorImplTest {
     }
     @Test
     public void getAccountTypeByAccountTypeCodeNativeQuery() {
-        String expectedResponse = "AccountTypeDto{accountTypeId='1'accountTypeCode='MILES', accountTypeName='Miles', accountTypeDateCreated="+LocalDate.now()+"}";
-        AccountType accountTypeDto = new AccountType(Long.valueOf(1),"MILES","Miles",LocalDate.now());
+        String expectedResponse = "AccountTypeDto{accountTypeId='1'accountTypeCode='MILES', accountTypeName='Miles'}";
+        AccountType accountTypeDto = new AccountType(Long.valueOf(1),"MILES","Miles");
         when(repository.getAccountTypeByAccountTypeCodeNativeQuery(anyString())).thenReturn(accountTypeDto);
         AccountTypeDto res = translator.getAccountTypeByAccountTypeCodeNativeQuery("memberFullName");
         assertNotNull(res);
@@ -91,7 +91,7 @@ public class AccountTypeTranslatorImplTest {
     @Test(expected = RuntimeException.class)
     public void getAccountTypeByAccountTypeCodeNativeQueryError() {
             String expectedResponse = "AccountTypeDto{accountTypeId='1'accountTypeCode='MILES', accountTypeName='Miles', accountTypeDateCreated="+LocalDate.now()+"}";
-            AccountType accountTypeDto = new AccountType(Long.valueOf(1),"MILES","Miles",LocalDate.now());
+            AccountType accountTypeDto = new AccountType(Long.valueOf(1),"MILES","Miles");
             //when(repository.getAccountTypeByAccountTypeCodeNativeQuery(anyString())).thenReturn(accountTypeDto);
             AccountTypeDto res = translator.getAccountTypeByAccountTypeCodeNativeQuery(null);
             assertNotNull(res);

@@ -36,7 +36,7 @@ public class CreateAccountTypeFlowImplTest {
     @Test
     public void create() {
         try {
-            AccountTypeDto accountTypeDto = new AccountTypeDto("accountTypeCode", "name", LocalDate.parse("2021-09-29"));
+            AccountTypeDto accountTypeDto = new AccountTypeDto("accountTypeCode", "name");
             when(translator.create(any(AccountTypeDto.class))).thenReturn(accountTypeDto);
             AccountTypeDto res = flow.create(new AccountTypeDto());
             assertNotNull(res);

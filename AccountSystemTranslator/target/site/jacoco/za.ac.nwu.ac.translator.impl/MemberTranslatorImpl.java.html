@@ -10,6 +10,7 @@ import za.ac.nwu.ac.repo.persistence.AccountTypeRepository;
 import za.ac.nwu.ac.repo.persistence.MemberRepository;
 import za.ac.nwu.ac.translator.MemberTranslator;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,63 +19,65 @@ public class MemberTranslatorImpl implements MemberTranslator {
     private final MemberRepository memberRepository;
 
     @Autowired
-<span class="fc" id="L21">    public MemberTranslatorImpl(MemberRepository memberRepository) {</span>
-<span class="fc" id="L22">        this.memberRepository = memberRepository;</span>
-<span class="fc" id="L23">    }</span>
+<span class="fc" id="L22">    public MemberTranslatorImpl(MemberRepository memberRepository) {</span>
+<span class="fc" id="L23">        this.memberRepository = memberRepository;</span>
+<span class="fc" id="L24">    }</span>
 
 
     @Override
     public List&lt;MemberDto&gt; getAllMembers() {
-<span class="fc" id="L28">        List&lt;MemberDto&gt; members = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L29">        List&lt;MemberDto&gt; members = new ArrayList&lt;&gt;();</span>
         try {
-<span class="fc bfc" id="L30" title="All 2 branches covered.">            for (Member member : memberRepository.findAll()) {</span>
-<span class="fc" id="L31">                members.add(new MemberDto(member));</span>
-<span class="fc" id="L32">            }</span>
-<span class="nc" id="L33">        } catch (Exception e) {</span>
-<span class="nc" id="L34">            throw new RuntimeException(&quot;Not able to read from database.&quot;, e);</span>
-<span class="fc" id="L35">        }</span>
-<span class="fc" id="L36">        return members;</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">            for (Member member : memberRepository.findAll()) {</span>
+<span class="fc" id="L32">                members.add(new MemberDto(member));</span>
+<span class="fc" id="L33">            }</span>
+<span class="nc" id="L34">        } catch (Exception e) {</span>
+<span class="nc" id="L35">            throw new RuntimeException(&quot;Not able to read from database.&quot;, e);</span>
+<span class="fc" id="L36">        }</span>
+<span class="fc" id="L37">        return members;</span>
     }
 
     @Override
     public MemberDto create(MemberDto memberDto) {
         try {
-<span class="fc" id="L42">            Member member = memberRepository.save(memberDto.getMember());</span>
-<span class="fc" id="L43">            return new MemberDto(member);</span>
-<span class="nc" id="L44">        } catch (Exception e) {</span>
-<span class="nc" id="L45">            throw new RuntimeException(&quot;Unable to save to database&quot;, e);</span>
+<span class="fc" id="L43">            Member member = memberRepository.save(memberDto.getMember());</span>
+<span class="fc" id="L44">            return new MemberDto(member);</span>
+<span class="nc" id="L45">        } catch (Exception e) {</span>
+<span class="nc" id="L46">            throw new RuntimeException(&quot;Unable to save to database&quot;, e);</span>
         }
     }
 
     @Override
     public MemberDto getAccountBalanceNativeQuery(String memberFullName) {
         try {
-<span class="fc" id="L52">            Member member = memberRepository.getAccountBalanceNativeQuery(memberFullName);</span>
-<span class="fc" id="L53">            return new MemberDto(member);</span>
-<span class="nc" id="L54">        } catch (Exception e) {</span>
-<span class="nc" id="L55">            throw new RuntimeException(&quot;Unable to read from the DB&quot;, e);</span>
+<span class="fc" id="L53">            Member member = memberRepository.getAccountBalanceNativeQuery(memberFullName);</span>
+<span class="fc" id="L54">            return new MemberDto(member);</span>
+<span class="nc" id="L55">        } catch (Exception e) {</span>
+<span class="nc" id="L56">            throw new RuntimeException(&quot;Unable to read from the DB&quot;, e);</span>
         }
     }
 
     @Override
-    public MemberDto addAccountBalance(String memberFullName, Double amount) {
+    public MemberDto addAccountBalance(String memberFullName, Double amount, LocalDate date) {
         try {
-<span class="fc" id="L62">            Member member = memberRepository.getAccountBalanceNativeQuery(memberFullName);</span>
-<span class="fc" id="L63">            member.setBalance((member.getBalance() + amount));</span>
-<span class="fc" id="L64">            return new MemberDto(member);</span>
-<span class="fc" id="L65">        } catch (Exception e) {</span>
-<span class="fc" id="L66">            throw new RuntimeException(&quot;Could not add the desired amount to the account balance&quot;, e);</span>
+<span class="fc" id="L63">            Member member = memberRepository.getAccountBalanceNativeQuery(memberFullName);</span>
+<span class="fc" id="L64">            member.setMemberDate(date);</span>
+<span class="fc" id="L65">            member.setBalance((member.getBalance() + amount));</span>
+<span class="fc" id="L66">            return new MemberDto(member);</span>
+<span class="fc" id="L67">        } catch (Exception e) {</span>
+<span class="fc" id="L68">            throw new RuntimeException(&quot;Could not add the desired amount to the account balance&quot;, e);</span>
         }
     }
 
     @Override
-    public MemberDto subtractAccountBalance(String memberFullName, Double amount) {
+    public MemberDto subtractAccountBalance(String memberFullName, Double amount, LocalDate date) {
         try {
-<span class="fc" id="L73">            Member member = memberRepository.getAccountBalanceNativeQuery(memberFullName);</span>
-<span class="fc" id="L74">            member.setBalance((member.getBalance() - amount));</span>
-<span class="fc" id="L75">            return new MemberDto(member);</span>
-<span class="nc" id="L76">        } catch (Exception e) {</span>
-<span class="nc" id="L77">            throw new RuntimeException(&quot;Could not subtract the desired amount to the account balance&quot;, e);</span>
+<span class="fc" id="L75">            Member member = memberRepository.getAccountBalanceNativeQuery(memberFullName);</span>
+<span class="fc" id="L76">            member.setMemberDate(date);</span>
+<span class="fc" id="L77">            member.setBalance((member.getBalance() - amount));</span>
+<span class="fc" id="L78">            return new MemberDto(member);</span>
+<span class="nc" id="L79">        } catch (Exception e) {</span>
+<span class="nc" id="L80">            throw new RuntimeException(&quot;Could not subtract the desired amount to the account balance&quot;, e);</span>
         }
     }
 }

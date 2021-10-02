@@ -69,9 +69,9 @@ public class AccountTypeControllerTest {
     @Test
     public void getAll() throws Exception {
         try{
-            String expectedResponse = "{\"successful\":true,\"payload\":[{\"accountTypeID\":1,\"accountTypeCode\":\"MILES\",\"accountTypeName\":\"Miles account type\",\"accountTypeDateCreated\":[2021,1,1]}]}";
+            String expectedResponse = "{\"successful\":true,\"payload\":[{\"accountTypeID\":1,\"accountTypeCode\":\"MILES\",\"accountTypeName\":\"Miles account type\"}]}";
             List<AccountTypeDto> accountTypes = new ArrayList<>();
-            accountTypes.add(new AccountTypeDto(Long.valueOf(1),"MILES", "Miles account type", LocalDate.parse("2021-01-01")));
+            accountTypes.add(new AccountTypeDto(Long.valueOf(1),"MILES", "Miles account type"));
             when(fetchAccountTypeFlow.getAllAccountTypes()).thenReturn(accountTypes);
             String val = String.format("%s%s", ACCOUNT_TYPE_CONTROLLER_URL, "/all");
             MvcResult mvcR = mockMvc.perform(get((String.format("%s%s", ACCOUNT_TYPE_CONTROLLER_URL, "/all")))
@@ -101,17 +101,21 @@ public class AccountTypeControllerTest {
         }*/
 
 
-   /* @Test
+    @Test
     public void create() throws Exception {
         //try{
-            String expectedResponse = "";
-        String val = "{\"accountTypeId\":1,\"accountTypeCode\":\"HID\",\"accountTypeName\":\"accountTypeName1\",\"accountTypeDateCreated\":[2021,01,01]}";
-            AccountTypeDto accountType = new AccountTypeDto(Long.valueOf(1),"HID", "accountTypeName1", LocalDate.parse("2021-01-01"));
-            when(createAccountTypeFlow.create(eq(accountType))).then(returnsFirstArg());
+            String expectedResponse = "{\"successful\":true,\"payload\":{\"accountTypeID\":1,\"accountTypeCode\":\"MILES\",\"accountTypeName\":\"Miles\"}}";
+        String val = "{\n" +
+                "  \"accountTypeID\": 1,\n" +
+                "  \"accountTypeCode\": \"MILES\",\n" +
+                "  \"accountTypeName\": \"Miles\"\n" +
+                "}";
+            AccountTypeDto accountType = new AccountTypeDto(Long.valueOf(1),"MILES", "Miles");
+            when(createAccountTypeFlow.create(any(AccountTypeDto.class))).thenReturn(accountType);
             //String val = String.format("%s%s", ACCOUNT_TYPE_CONTROLLER_URL, "/new");
       //  GeneralResponse<AccountTypeDto> re = new GeneralResponse<>(true,accountType);
 
-            MvcResult mvcR = mockMvc.perform(post((String.format("%s%s", ACCOUNT_TYPE_CONTROLLER_URL, "new")))
+            MvcResult mvcR = mockMvc.perform(post((String.format("%s%s", ACCOUNT_TYPE_CONTROLLER_URL, "/new")))
                             .servletPath(APP_URL)
                             .accept(MediaType.APPLICATION_JSON)
                             .content(val)
@@ -119,15 +123,33 @@ public class AccountTypeControllerTest {
                     .andExpect(status().isCreated())
                     .andReturn();
 
-            verify(createAccountTypeFlow, times(1)).create(eq(accountType));
+            verify(createAccountTypeFlow, times(1)).create(any(AccountTypeDto.class));
             assertEquals(expectedResponse, mvcR.getResponse().getContentAsString());
        /* }catch (Exception e) {
             assertFalse("Error message not as expected", e.getMessage().equalsIgnoreCase("Some reason the CreateMemberFlowImplTest could not complete"));
         }*/
 
-   // }
+    }
 
     @Test
-    public void getAccountType() {
+    public void getAccountBalance() {
+        try{
+            String expectedResponse = "{\"successful\":true,\"payload\":{\"accountTypeID\":1,\"accountTypeCode\":\"MILES\",\"accountTypeName\":\"Miles account type\"}}";
+            AccountTypeDto accountTypes = new AccountTypeDto(Long.valueOf(1),"MILES", "Miles account type");
+            when(fetchAccountTypeFlow.getAccountTypeByAccountTypeCode(anyString())).thenReturn(accountTypes);
+
+            MvcResult mvcR = mockMvc.perform(get((String.format("%s%s", ACCOUNT_TYPE_CONTROLLER_URL, "/get/MILES")))
+                            .servletPath(APP_URL)
+                            .accept(MediaType.APPLICATION_JSON)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andReturn();
+
+            verify(fetchAccountTypeFlow, times(1)).getAccountTypeByAccountTypeCode(anyString());
+            assertEquals(expectedResponse, mvcR.getResponse().getContentAsString());
+        }catch (Exception e) {
+            assertFalse("Error message not as expected", e.getMessage().equalsIgnoreCase("Some reason the CreateMemberFlowImplTest could not complete"));
+        }
+
     }
 }

@@ -2,6 +2,7 @@ package za.ac.nwu.ac.domain.persistence;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ public class Member implements Serializable {
     private Long memberId;
     private String memberFullName;
     private Double balance;
+    private LocalDate memberDate;
 
     private AccountType accountType;
 
@@ -23,11 +25,13 @@ public class Member implements Serializable {
     public Member() {
     }
 
-    public Member(Long memberId, String memberFullName, Double balance, AccountType accountType) {
+
+    public Member(Long memberId, String memberFullName, Double balance, AccountType accountType, LocalDate memberDate) {
         this.memberId = memberId;
         this.memberFullName = memberFullName;
         this.balance = balance;
         this.accountType = accountType;
+        this.memberDate = memberDate;
     }
 
     public Member(String memberFullName, Double balance) {
@@ -81,12 +85,12 @@ public class Member implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        return Objects.equals(memberId, member.memberId) && Objects.equals(memberFullName, member.memberFullName) && Objects.equals(balance, member.balance)&&Objects.equals(accountType, member.accountType);
+        return Objects.equals(memberId, member.memberId) && Objects.equals(memberFullName, member.memberFullName) && Objects.equals(balance, member.balance)&&Objects.equals(accountType, member.accountType) && Objects.equals(memberDate, member.memberDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberId, memberFullName, balance,accountType);
+        return Objects.hash(memberId, memberFullName, balance, accountType, memberDate);
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -99,12 +103,21 @@ public class Member implements Serializable {
         this.accountType = accountType;
     }
 
+    public LocalDate getMemberDate() {
+        return memberDate;
+    }
+
+    public void setMemberDate(LocalDate memberDate) {
+        this.memberDate = memberDate;
+    }
+
     @Override
     public String toString() {
         return "Member{" +
                 "memberId=" + memberId +
                 ", memberFullName='" + memberFullName + '\'' +
                 ", balance=" + balance +
+                ", memberDate=" + memberDate +
                 ", accountType=" + accountType +
                 '}';
     }

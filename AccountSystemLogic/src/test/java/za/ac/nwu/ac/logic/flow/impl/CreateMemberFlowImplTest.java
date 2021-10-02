@@ -40,7 +40,7 @@ public class CreateMemberFlowImplTest {
     @Test
     public void create() {
         try {
-            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00,new AccountType(Long.valueOf(1),"MILES","miles",LocalDate.now()));
+            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00,new AccountType(Long.valueOf(1),"MILES","miles"),LocalDate.now());
 
             MemberDto memberDto = new MemberDto(member);
             when(translator.create(any(MemberDto.class))).thenReturn(memberDto);

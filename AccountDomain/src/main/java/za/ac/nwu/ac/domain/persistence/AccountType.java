@@ -18,17 +18,15 @@ public class AccountType implements Serializable {
     private Long accountTypeId;
     private String accountTypeCode;
     private String accountTypeName;
-    private LocalDate accountTypeDateCreated;
 
     private Set<AccountTransaction> accountTransactions;
 
     public AccountType() {
     }
 
-    public AccountType(String accountTypeCode, String accountTypeName, LocalDate accountTypeDateCreated) {
+    public AccountType(String accountTypeCode, String accountTypeName) {
         this.accountTypeCode = accountTypeCode;
         this.accountTypeName = accountTypeName;
-        this.accountTypeDateCreated = accountTypeDateCreated;
     }
 
     public AccountType(Long accountTypeId, String accountTypeCode) {
@@ -36,11 +34,10 @@ public class AccountType implements Serializable {
         this.accountTypeCode = accountTypeCode;
     }
 
-    public AccountType(Long accountTypeId, String accountTypeCode, String accountTypeName, LocalDate accountTypeDateCreated) {
+    public AccountType(Long accountTypeId, String accountTypeCode, String accountTypeName) {
         this.accountTypeId = accountTypeId;
         this.accountTypeCode = accountTypeCode;
         this.accountTypeName = accountTypeName;
-        this.accountTypeDateCreated = accountTypeDateCreated;
     }
 
     @Id
@@ -73,14 +70,6 @@ public class AccountType implements Serializable {
         this.accountTypeName = accountTypeName;
     }
 
-    @Column(name = "ACCOUNT_TYPE_DATE_CREATED")
-    public LocalDate getAccountTypeDateCreated() {
-        return accountTypeDateCreated;
-    }
-
-    public void setAccountTypeDateCreated(LocalDate accountTypeDateCreated) {
-        this.accountTypeDateCreated = accountTypeDateCreated;
-    }
 
     @OneToMany(targetEntity = Member.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade = CascadeType.PERSIST)
     public Set<AccountTransaction> getAccountTransactions() {
@@ -96,12 +85,12 @@ public class AccountType implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountType that = (AccountType) o;
-        return Objects.equals(accountTypeId, that.accountTypeId) && Objects.equals(accountTypeCode, that.accountTypeCode) && Objects.equals(accountTypeName, that.accountTypeName) && Objects.equals(accountTypeDateCreated, that.accountTypeDateCreated);
+        return Objects.equals(accountTypeId, that.accountTypeId) && Objects.equals(accountTypeCode, that.accountTypeCode) && Objects.equals(accountTypeName, that.accountTypeName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountTypeId, accountTypeCode, accountTypeName, accountTypeDateCreated);
+        return Objects.hash(accountTypeId, accountTypeCode, accountTypeName);
     }
 
 
@@ -110,8 +99,7 @@ public class AccountType implements Serializable {
         return "AccountType{" +
                 "accountTypeId=" + accountTypeId +
                 ", accountTypeCode='" + accountTypeCode + '\'' +
-                ", accountTypeName='" + accountTypeName + '\'' +
-                ", accountTypeDateCreated=" + accountTypeDateCreated +
+                ", accountTypeName='" + accountTypeName +
                 '}';
     }
 }

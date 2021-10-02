@@ -2,6 +2,9 @@
 
 import javax.transaction.Transactional;
 
+import jdk.nashorn.internal.runtime.options.LoggingOption;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.ac.domain.dto.AccountTypeDto;
 import za.ac.nwu.ac.logic.flow.CreateAccountTypeFlow;
@@ -13,17 +16,16 @@ import java.time.LocalDate;
 public class CreateAccountTypeFlowImpl implements CreateAccountTypeFlow {
 
     private final AccountTypeTranslator accountTypeTranslator;
+<span class="fc" id="L19">    private static final Logger LOGGER = LoggerFactory.getLogger(CreateAccountTypeFlowImpl.class);</span>
 
-<span class="fc" id="L17">    public CreateAccountTypeFlowImpl(AccountTypeTranslator accountTypeTranslator) {</span>
-<span class="fc" id="L18">        this.accountTypeTranslator = accountTypeTranslator;</span>
-<span class="fc" id="L19">    }</span>
+<span class="fc" id="L21">    public CreateAccountTypeFlowImpl(AccountTypeTranslator accountTypeTranslator) {</span>
+<span class="fc" id="L22">        this.accountTypeTranslator = accountTypeTranslator;</span>
+<span class="fc" id="L23">    }</span>
 
     @Override
     public AccountTypeDto create(AccountTypeDto accountType){
-<span class="pc bpc" id="L23" title="1 of 2 branches missed.">        if(null == accountType.getAccountTypeDateCreated()){</span>
-<span class="fc" id="L24">            accountType.setAccountTypeDateCreated(LocalDate.now());</span>
-        }
-<span class="fc" id="L26">        return accountTypeTranslator.create(accountType);</span>
+<span class="fc" id="L27">        LOGGER.info(&quot;Input: {}&quot;,accountType);</span>
+<span class="fc" id="L28">        return accountTypeTranslator.create(accountType);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

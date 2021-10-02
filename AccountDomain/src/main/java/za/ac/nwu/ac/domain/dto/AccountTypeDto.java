@@ -17,22 +17,19 @@ public class AccountTypeDto implements Serializable {
     private Long accountTypeID;
     private String accountTypeCode;
     private String accountTypeName;
-    private LocalDate accountTypeDateCreated;
 
     public AccountTypeDto() {
     }
 
-    public AccountTypeDto(Long accountTypeID, String accountTypeCode, String accountTypeName, LocalDate accountTypeDateCreated) {
+    public AccountTypeDto(Long accountTypeID, String accountTypeCode, String accountTypeName) {
         this.accountTypeID = accountTypeID;
         this.accountTypeCode = accountTypeCode;
         this.accountTypeName = accountTypeName;
-        this.accountTypeDateCreated = accountTypeDateCreated;
     }
 
-    public AccountTypeDto(String accountTypeCode, String accountTypeName, LocalDate accountTypeDateCreated) {
+    public AccountTypeDto(String accountTypeCode, String accountTypeName) {
         this.accountTypeCode = accountTypeCode;
         this.accountTypeName = accountTypeName;
-        this.accountTypeDateCreated = accountTypeDateCreated;
     }
 /*
     public AccountTypeDto(AccountType accountType) {
@@ -44,7 +41,6 @@ public class AccountTypeDto implements Serializable {
     public AccountTypeDto(AccountType accountType) {
         this.setAccountTypeID(accountType.getAccountTypeId());
         this.setAccountTypeName(accountType.getAccountTypeName());
-        this.setAccountTypeDateCreated(accountType.getAccountTypeDateCreated());
         this.setAccountTypeCode(accountType.getAccountTypeCode());
     }
 
@@ -93,37 +89,23 @@ public class AccountTypeDto implements Serializable {
         this.accountTypeName = accountTypeName;
     }
 
-    @ApiModelProperty(position = 4,
-            value = "AccountType AccountTypeDateCreated",
-            name = "AccountTypeDateCreated",
-            notes = "The data on which the AccountType was created",
-            dataType = "java.lang.String",
-            example = "2021-01-01",
-            allowEmptyValue = true)
-    public LocalDate getAccountTypeDateCreated() {
-        return accountTypeDateCreated;
-    }
-
-    public void setAccountTypeDateCreated(LocalDate accountTypeDateCreated) {
-        this.accountTypeDateCreated = accountTypeDateCreated;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountTypeDto that = (AccountTypeDto) o;
-        return Objects.equals(accountTypeID, that.accountTypeID) && Objects.equals(accountTypeCode, that.accountTypeCode) && Objects.equals(accountTypeName, that.accountTypeName) && Objects.equals(accountTypeDateCreated, that.accountTypeDateCreated);
-    }
-
-    @JsonIgnore
-    public AccountType getAccountType(){
-        return new AccountType(getAccountTypeID(), getAccountTypeCode(), getAccountTypeName(), getAccountTypeDateCreated());
+        return Objects.equals(accountTypeID, that.accountTypeID) && Objects.equals(accountTypeCode, that.accountTypeCode) && Objects.equals(accountTypeName, that.accountTypeName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountTypeID, accountTypeCode, accountTypeName, accountTypeDateCreated);
+        return Objects.hash(accountTypeID, accountTypeCode, accountTypeName);
+    }
+
+    @JsonIgnore
+    public AccountType getAccountType(){
+        return new AccountType(getAccountTypeID(), getAccountTypeCode(), getAccountTypeName());
     }
 
     @Override
@@ -132,7 +114,6 @@ public class AccountTypeDto implements Serializable {
                 "accountTypeId='" + accountTypeID + '\'' +
                 "accountTypeCode='" + accountTypeCode + '\'' +
                 ", accountTypeName='" + accountTypeName + '\'' +
-                ", accountTypeDateCreated=" + accountTypeDateCreated +
                 '}';
     }
 }

@@ -11,7 +11,6 @@ public interface AccountTypeRepository extends JpaRepository<AccountType, Long> 
     @Query(value = "SELECT "+
     "   ACCOUNT_TYPE_ID,"+
     "   ACCOUNT_TYPE_NAME,"+
-    "   ACCOUNT_TYPE_DATE_CREATED,"+
     "   ACCOUNT_TYPE_CODE"+
     "   FROM "+
     "   ARMAND.ACCOUNT_TYPE "+

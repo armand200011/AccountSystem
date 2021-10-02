@@ -45,7 +45,7 @@ public class AccountTypeController {
     }
 
 
-    @PostMapping(&quot;&quot;)
+    @PostMapping(&quot;/new&quot;)
     @ApiOperation(value = &quot;Create a new accountType&quot;, notes = &quot;Create a new accountType in the database&quot;)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = &quot;The accountType was created successfully&quot;, response = GeneralResponse.class),
@@ -55,12 +55,12 @@ public class AccountTypeController {
     public ResponseEntity&lt;GeneralResponse&lt;AccountTypeDto&gt;&gt; create(
             @ApiParam(value = &quot;Request body to create new accountType&quot;, required = true)
             @RequestBody AccountTypeDto accountType){
-<span class="nc" id="L58">        AccountTypeDto accountTypeResponse = createAccountTypeFlow.create(accountType);</span>
-<span class="nc" id="L59">        GeneralResponse&lt;AccountTypeDto&gt; response = new GeneralResponse&lt;&gt;(true, accountTypeResponse);</span>
-<span class="nc" id="L60">        return new ResponseEntity&lt;&gt;(response, HttpStatus.CREATED);</span>
+<span class="fc" id="L58">        AccountTypeDto accountTypeResponse = createAccountTypeFlow.create(accountType);</span>
+<span class="fc" id="L59">        GeneralResponse&lt;AccountTypeDto&gt; response = new GeneralResponse&lt;&gt;(true, accountTypeResponse);</span>
+<span class="fc" id="L60">        return new ResponseEntity&lt;&gt;(response, HttpStatus.CREATED);</span>
     }
 
-    @GetMapping(&quot;{accountTypeCode}&quot;)
+    @GetMapping(&quot;/get/{accountTypeCode}&quot;)
     @ApiOperation(value = &quot;Fetches the specified AccountType&quot;, notes = &quot;Fetches the AccountType corresponding AccountTypeCode&quot;)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = &quot;Goal found&quot;, response = GeneralResponse.class),
@@ -74,9 +74,9 @@ public class AccountTypeController {
                     name = &quot;accountTypeCode&quot;,
                     required = true)
             @PathVariable(&quot;accountTypeCode&quot;) final String accountTypeCode){
-<span class="nc" id="L77">        AccountTypeDto accountType = fetchAccountTypeFlow.getAccountTypeByAccountTypeCode(accountTypeCode);</span>
-<span class="nc" id="L78">        GeneralResponse&lt;AccountTypeDto&gt; response = new GeneralResponse&lt;&gt;(true,accountType);</span>
-<span class="nc" id="L79">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+<span class="fc" id="L77">        AccountTypeDto accountType = fetchAccountTypeFlow.getAccountTypeByAccountTypeCode(accountTypeCode);</span>
+<span class="fc" id="L78">        GeneralResponse&lt;AccountTypeDto&gt; response = new GeneralResponse&lt;&gt;(true,accountType);</span>
+<span class="fc" id="L79">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
     }
 
 

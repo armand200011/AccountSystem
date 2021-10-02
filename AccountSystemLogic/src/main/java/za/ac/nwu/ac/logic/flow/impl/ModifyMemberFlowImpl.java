@@ -7,6 +7,7 @@ import za.ac.nwu.ac.logic.flow.ModifyMemberFlow;
 import za.ac.nwu.ac.translator.MemberTranslator;
 import org.springframework.stereotype.Component;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 
 @Transactional
 @Component
@@ -20,14 +21,22 @@ public class ModifyMemberFlowImpl implements ModifyMemberFlow {
     }
 
     @Override
-    public MemberDto addAccountBalance(String memberFullName, Double amount) {
-        LOGGER.info("Input memberFullName: {}, Input amount: {}", memberFullName, amount);
-        return memberTranslator.addAccountBalance( memberFullName, amount);
+    public MemberDto addAccountBalance(String memberFullName, Double amount, LocalDate date) {
+        LOGGER.info("Input memberFullName: {}, Input amount: {}, Input date: {}", memberFullName, amount, date);
+        if(null==date)
+        {
+            date = LocalDate.now();
+        }
+        return memberTranslator.addAccountBalance( memberFullName, amount, date);
     }
 
     @Override
-    public MemberDto subtractAccountBalance(String memberFullName, Double amount) {
-        LOGGER.info("Input memberFullName: {}, Input amount: {}", memberFullName, amount);
-        return memberTranslator.subtractAccountBalance( memberFullName, amount);
+    public MemberDto subtractAccountBalance(String memberFullName, Double amount, LocalDate date) {
+        LOGGER.info("Input memberFullName: {}, Input amount: {}, Input date: {}", memberFullName, amount, date);
+        if(null==date)
+        {
+            date = LocalDate.now();
+        }
+        return memberTranslator.subtractAccountBalance( memberFullName, amount, date);
     }
 }

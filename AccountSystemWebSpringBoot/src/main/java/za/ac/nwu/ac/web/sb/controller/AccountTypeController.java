@@ -45,7 +45,7 @@ public class AccountTypeController {
     }
 
 
-    @PostMapping("")
+    @PostMapping("/new")
     @ApiOperation(value = "Create a new accountType", notes = "Create a new accountType in the database")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "The accountType was created successfully", response = GeneralResponse.class),
@@ -60,7 +60,7 @@ public class AccountTypeController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping("{accountTypeCode}")
+    @GetMapping("/get/{accountTypeCode}")
     @ApiOperation(value = "Fetches the specified AccountType", notes = "Fetches the AccountType corresponding AccountTypeCode")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Goal found", response = GeneralResponse.class),

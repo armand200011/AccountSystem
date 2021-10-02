@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import za.ac.nwu.ac.logic.flow.FetchMemberFlow;
 import za.ac.nwu.ac.logic.flow.ModifyMemberFlow;
 
 import java.awt.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -31,12 +33,12 @@ public class MemberController {
     @Autowired
     public MemberController(FetchMemberFlow fetchMemberFlow,
                  @Qualifier(&quot;createMemberFlowName&quot;) CreateMemberFlow createMemberFlow,
-<span class="nc" id="L34">                            ModifyMemberFlow modifyMemberFlow) {</span>
+<span class="fc" id="L36">                            ModifyMemberFlow modifyMemberFlow) {</span>
 
-<span class="nc" id="L36">        this.fetchMemberFlow = fetchMemberFlow;</span>
-<span class="nc" id="L37">        this.createMemberFlow = createMemberFlow;</span>
-<span class="nc" id="L38">        this.modifyMemberFlow = modifyMemberFlow;</span>
-<span class="nc" id="L39">    }</span>
+<span class="fc" id="L38">        this.fetchMemberFlow = fetchMemberFlow;</span>
+<span class="fc" id="L39">        this.createMemberFlow = createMemberFlow;</span>
+<span class="fc" id="L40">        this.modifyMemberFlow = modifyMemberFlow;</span>
+<span class="fc" id="L41">    }</span>
 
 
     @GetMapping(&quot;/viewAll&quot;)
@@ -48,9 +50,9 @@ public class MemberController {
             @ApiResponse(code = 500, message = &quot;Internal Server Error&quot;, response = GeneralResponse.class)
     })
     public ResponseEntity&lt;GeneralResponse&lt;List&lt;MemberDto&gt;&gt;&gt; getAll(){
-<span class="nc" id="L51">        List&lt;MemberDto&gt; members = fetchMemberFlow.getAllMembers();</span>
-<span class="nc" id="L52">        GeneralResponse&lt;List&lt;MemberDto&gt;&gt; response = new GeneralResponse&lt;&gt;(true, members);</span>
-<span class="nc" id="L53">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+<span class="fc" id="L53">        List&lt;MemberDto&gt; members = fetchMemberFlow.getAllMembers();</span>
+<span class="fc" id="L54">        GeneralResponse&lt;List&lt;MemberDto&gt;&gt; response = new GeneralResponse&lt;&gt;(true, members);</span>
+<span class="fc" id="L55">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
     }
 
     @PostMapping(&quot;createNew&quot;)
@@ -63,9 +65,9 @@ public class MemberController {
     public ResponseEntity&lt;GeneralResponse&lt;MemberDto&gt;&gt; create(
             @ApiParam(value = &quot;Request body to create new member&quot;, required = true)
             @RequestBody MemberDto member){
-<span class="nc" id="L66">        MemberDto memberResponse = createMemberFlow.create(member);</span>
-<span class="nc" id="L67">        GeneralResponse&lt;MemberDto&gt; response = new GeneralResponse&lt;&gt;(true, memberResponse);</span>
-<span class="nc" id="L68">        return new ResponseEntity&lt;&gt;(response, HttpStatus.CREATED);</span>
+<span class="fc" id="L68">        MemberDto memberResponse = createMemberFlow.create(member);</span>
+<span class="fc" id="L69">        GeneralResponse&lt;MemberDto&gt; response = new GeneralResponse&lt;&gt;(true, memberResponse);</span>
+<span class="fc" id="L70">        return new ResponseEntity&lt;&gt;(response, HttpStatus.CREATED);</span>
     }
 
 
@@ -84,9 +86,9 @@ public class MemberController {
                     name = &quot;memberFullName&quot;,
                     required = true)
             @PathVariable(&quot;memberFullName&quot;)final String memberFullName){
-<span class="nc" id="L87">        MemberDto member = fetchMemberFlow.getAccountBalance(memberFullName);</span>
-<span class="nc" id="L88">        GeneralResponse&lt;MemberDto&gt; response = new GeneralResponse&lt;&gt;(true,member);</span>
-<span class="nc" id="L89">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+<span class="fc" id="L89">        MemberDto member = fetchMemberFlow.getAccountBalance(memberFullName);</span>
+<span class="fc" id="L90">        GeneralResponse&lt;MemberDto&gt; response = new GeneralResponse&lt;&gt;(true,member);</span>
+<span class="fc" id="L91">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
     }
 
 
@@ -110,10 +112,15 @@ public class MemberController {
             example = &quot;5.55&quot;,
             name = &quot;amount&quot;,
             required = true)
-            @RequestParam(&quot;amount&quot;) final Double amount){
-<span class="nc" id="L114">        MemberDto member = modifyMemberFlow.addAccountBalance(memberFullName,amount);</span>
-<span class="nc" id="L115">        GeneralResponse&lt;MemberDto&gt; response = new GeneralResponse&lt;&gt;(true,member);</span>
-<span class="nc" id="L116">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+            @RequestParam(&quot;amount&quot;) final Double amount,
+            @ApiParam(value = &quot;The date on which the accounts balance will be increases. The date will be ISO format {yyyy-MM-dd}\n\rIf no date is inserted the member balance will be increased today&quot;,
+                    name = &quot;date&quot;)
+            @RequestParam(value = &quot;date&quot;, required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            LocalDate date){
+<span class="fc" id="L121">        MemberDto member = modifyMemberFlow.addAccountBalance(memberFullName,amount, date);</span>
+<span class="fc" id="L122">        GeneralResponse&lt;MemberDto&gt; response = new GeneralResponse&lt;&gt;(true,member);</span>
+<span class="fc" id="L123">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
     }
 
 
@@ -135,10 +142,15 @@ public class MemberController {
                     example = &quot;5.55&quot;,
                     name = &quot;amount&quot;,
                     required = true)
-            @RequestParam(&quot;amount&quot;) final Double amount){
-<span class="nc" id="L139">        MemberDto member = modifyMemberFlow.subtractAccountBalance(memberFullName,amount);</span>
-<span class="nc" id="L140">        GeneralResponse&lt;MemberDto&gt; response = new GeneralResponse&lt;&gt;(true,member);</span>
-<span class="nc" id="L141">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+            @RequestParam(&quot;amount&quot;) final Double amount,
+            @ApiParam(value = &quot;The date on which the accounts balance will be subtracted. The date will be ISO format {yyyy-MM-dd}\n\rIf no date is inserted the member balance will be subtracted today&quot;,
+                    name = &quot;date&quot;)
+            @RequestParam(value = &quot;date&quot;, required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                    LocalDate date) {
+<span class="fc" id="L151">        MemberDto member = modifyMemberFlow.subtractAccountBalance(memberFullName,amount, date);</span>
+<span class="fc" id="L152">        GeneralResponse&lt;MemberDto&gt; response = new GeneralResponse&lt;&gt;(true,member);</span>
+<span class="fc" id="L153">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

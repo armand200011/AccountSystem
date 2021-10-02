@@ -24,7 +24,7 @@ public class SwaggerConfig {
     @Value("${swagger.application.version}")
     private String applicationVersion;
 
-    @Value("${swagger.application.name")
+    @Value("${swagger.application.name}")
     private String applicationName;
 
     @Value("${swagger.application.description}")
