@@ -42,7 +42,7 @@ public class FetchMemberFlowImplTest {
     @Test
     public void getAllMembers() {
         try {
-            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00,new AccountType(Long.valueOf(1),"MILES","miles"),LocalDate.now());
+            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00,new AccountType(Long.valueOf(1),"MILES","miles"),LocalDate.parse("2021-10-02"));
 
             String expectedResponse = "[MemberDto{memberId=1, memberFullName='memberFullName', balance=10.0, accountTypeId=1, accountTypeCode='MILES', memberDate=2021-10-02}]";
             List<MemberDto> memberDtos = new ArrayList<>();
@@ -60,7 +60,7 @@ public class FetchMemberFlowImplTest {
     @Test
     public void getAccountBalance() {
         try {
-            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00,new AccountType(Long.valueOf(1),"MILES","miles"), LocalDate.now());
+            Member member = new Member(Long.valueOf(1),"memberFullName", 10.00,new AccountType(Long.valueOf(1),"MILES","miles"), LocalDate.parse("2021-10-02"));
 
             String expectedResponse = "MemberDto{memberId=1, memberFullName='memberFullName', balance=10.0, accountTypeId=1, accountTypeCode='MILES', memberDate=2021-10-02}";
             MemberDto memberDto = new MemberDto(member);
