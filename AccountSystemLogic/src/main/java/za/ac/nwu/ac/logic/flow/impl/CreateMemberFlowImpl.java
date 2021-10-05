@@ -29,6 +29,11 @@ public class CreateMemberFlowImpl implements CreateMemberFlow {
             member.setBalance(50.55);
         }
 
+        MemberDto createMem = createMember(member);
+        return createMem;
+    }
+
+    private MemberDto createMember(MemberDto member) {
         return memberTranslator.create(member);
     }
 }

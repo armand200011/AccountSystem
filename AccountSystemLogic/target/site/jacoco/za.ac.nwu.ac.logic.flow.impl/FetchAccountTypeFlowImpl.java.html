@@ -26,13 +26,23 @@ public class FetchAccountTypeFlowImpl implements FetchAccountTypeFlow {
 
     @Override
     public List&lt;AccountTypeDto&gt; getAllAccountTypes() {
-<span class="fc" id="L29">        return accountTypeTranslator.getAllAccountTypes();</span>
+<span class="fc" id="L29">        List&lt;AccountTypeDto&gt; list = viewAllAccountTypes();</span>
+<span class="fc" id="L30">        return list;</span>
+    }
+
+    private List&lt;AccountTypeDto&gt; viewAllAccountTypes() {
+<span class="fc" id="L34">        return accountTypeTranslator.getAllAccountTypes();</span>
     }
 
     @Override
     public AccountTypeDto getAccountTypeByAccountTypeCode(String accountTypeCode) {
-<span class="fc" id="L34">        LOGGER.info(&quot;Input: {}&quot;, accountTypeCode);</span>
-<span class="fc" id="L35">        return accountTypeTranslator.getAccountTypeByAccountTypeCodeNativeQuery(accountTypeCode);</span>
+<span class="fc" id="L39">        LOGGER.info(&quot;Input: {}&quot;, accountTypeCode);</span>
+<span class="fc" id="L40">        AccountTypeDto viewTypeCode = viewByAccountTypeCode(accountTypeCode);</span>
+<span class="fc" id="L41">        return viewTypeCode;</span>
+    }
+
+    private AccountTypeDto viewByAccountTypeCode(String accountTypeCode) {
+<span class="fc" id="L45">        return accountTypeTranslator.getAccountTypeByAccountTypeCodeNativeQuery(accountTypeCode);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -25,6 +25,11 @@ public class CreateAccountTypeFlowImpl implements CreateAccountTypeFlow {
     @Override
     public AccountTypeDto create(AccountTypeDto accountType){
         LOGGER.info("Input: {}",accountType);
+        AccountTypeDto createAccountType = createAccountType(accountType);
+        return createAccountType;
+    }
+
+    private AccountTypeDto createAccountType(AccountTypeDto accountType) {
         return accountTypeTranslator.create(accountType);
     }
 }

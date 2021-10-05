@@ -26,12 +26,22 @@ public class FetchAccountTypeFlowImpl implements FetchAccountTypeFlow {
 
     @Override
     public List<AccountTypeDto> getAllAccountTypes() {
+        List<AccountTypeDto> list = viewAllAccountTypes();
+        return list;
+    }
+
+    private List<AccountTypeDto> viewAllAccountTypes() {
         return accountTypeTranslator.getAllAccountTypes();
     }
 
     @Override
     public AccountTypeDto getAccountTypeByAccountTypeCode(String accountTypeCode) {
         LOGGER.info("Input: {}", accountTypeCode);
+        AccountTypeDto viewTypeCode = viewByAccountTypeCode(accountTypeCode);
+        return viewTypeCode;
+    }
+
+    private AccountTypeDto viewByAccountTypeCode(String accountTypeCode) {
         return accountTypeTranslator.getAccountTypeByAccountTypeCodeNativeQuery(accountTypeCode);
     }
 }

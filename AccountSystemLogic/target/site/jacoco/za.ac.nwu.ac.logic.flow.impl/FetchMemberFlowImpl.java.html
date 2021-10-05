@@ -27,13 +27,23 @@ public class FetchMemberFlowImpl implements FetchMemberFlow {
 
     @Override
     public List&lt;MemberDto&gt; getAllMembers() {
-<span class="fc" id="L30">        return memberTranslator.getAllMembers();</span>
+<span class="fc" id="L30">        List&lt;MemberDto&gt; list = viewAllMembers();</span>
+<span class="fc" id="L31">        return list;</span>
+    }
+
+    private List&lt;MemberDto&gt; viewAllMembers() {
+<span class="fc" id="L35">        return memberTranslator.getAllMembers();</span>
     }
 
     @Override
     public MemberDto getAccountBalance(String memberFullName) {
-<span class="fc" id="L35">        LOGGER.info(&quot;Input: {}&quot;, memberFullName);</span>
-<span class="fc" id="L36">        return memberTranslator.getAccountBalanceNativeQuery(memberFullName);</span>
+<span class="fc" id="L40">        LOGGER.info(&quot;Input: {}&quot;, memberFullName);</span>
+<span class="fc" id="L41">        MemberDto balance = retriewMemberBalance(memberFullName);</span>
+<span class="fc" id="L42">        return balance;</span>
+    }
+
+    private MemberDto retriewMemberBalance(String memberFullName) {
+<span class="fc" id="L46">        return memberTranslator.getAccountBalanceNativeQuery(memberFullName);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

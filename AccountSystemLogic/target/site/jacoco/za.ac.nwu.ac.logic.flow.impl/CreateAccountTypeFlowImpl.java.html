@@ -25,7 +25,12 @@ public class CreateAccountTypeFlowImpl implements CreateAccountTypeFlow {
     @Override
     public AccountTypeDto create(AccountTypeDto accountType){
 <span class="fc" id="L27">        LOGGER.info(&quot;Input: {}&quot;,accountType);</span>
-<span class="fc" id="L28">        return accountTypeTranslator.create(accountType);</span>
+<span class="fc" id="L28">        AccountTypeDto createAccountType = createAccountType(accountType);</span>
+<span class="fc" id="L29">        return createAccountType;</span>
+    }
+
+    private AccountTypeDto createAccountType(AccountTypeDto accountType) {
+<span class="fc" id="L33">        return accountTypeTranslator.create(accountType);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

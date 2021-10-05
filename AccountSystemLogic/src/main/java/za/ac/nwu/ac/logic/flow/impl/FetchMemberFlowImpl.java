@@ -27,12 +27,22 @@ public class FetchMemberFlowImpl implements FetchMemberFlow {
 
     @Override
     public List<MemberDto> getAllMembers() {
+        List<MemberDto> list = viewAllMembers();
+        return list;
+    }
+
+    private List<MemberDto> viewAllMembers() {
         return memberTranslator.getAllMembers();
     }
 
     @Override
     public MemberDto getAccountBalance(String memberFullName) {
         LOGGER.info("Input: {}", memberFullName);
+        MemberDto balance = retrieveMemberBalance(memberFullName);
+        return balance;
+    }
+
+    private MemberDto retrieveMemberBalance(String memberFullName) {
         return memberTranslator.getAccountBalanceNativeQuery(memberFullName);
     }
 }

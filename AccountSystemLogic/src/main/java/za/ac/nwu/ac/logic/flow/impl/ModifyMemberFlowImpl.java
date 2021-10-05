@@ -27,7 +27,13 @@ public class ModifyMemberFlowImpl implements ModifyMemberFlow {
         {
             date = LocalDate.now();
         }
-        return memberTranslator.addAccountBalance( memberFullName, amount, date);
+
+        MemberDto add = addAmount(memberFullName, amount, date);
+        return add;
+    }
+
+    private MemberDto addAmount(String memberFullName, Double amount, LocalDate date) {
+        return memberTranslator.addAccountBalance(memberFullName, amount, date);
     }
 
     @Override
@@ -36,7 +42,13 @@ public class ModifyMemberFlowImpl implements ModifyMemberFlow {
         if(null==date)
         {
             date = LocalDate.now();
+
         }
-        return memberTranslator.subtractAccountBalance( memberFullName, amount, date);
+        MemberDto sub = subAmount(memberFullName, amount, date);
+        return sub;
+    }
+
+    private MemberDto subAmount(String memberFullName, Double amount, LocalDate date) {
+        return memberTranslator.subtractAccountBalance(memberFullName, amount, date);
     }
 }

@@ -27,17 +27,29 @@ public class ModifyMemberFlowImpl implements ModifyMemberFlow {
         {
 <span class="nc" id="L28">            date = LocalDate.now();</span>
         }
-<span class="fc" id="L30">        return memberTranslator.addAccountBalance( memberFullName, amount, date);</span>
+
+<span class="fc" id="L31">        MemberDto add = addAmount(memberFullName, amount, date);</span>
+<span class="fc" id="L32">        return add;</span>
+    }
+
+    private MemberDto addAmount(String memberFullName, Double amount, LocalDate date) {
+<span class="fc" id="L36">        return memberTranslator.addAccountBalance(memberFullName, amount, date);</span>
     }
 
     @Override
     public MemberDto subtractAccountBalance(String memberFullName, Double amount, LocalDate date) {
-<span class="fc" id="L35">        LOGGER.info(&quot;Input memberFullName: {}, Input amount: {}, Input date: {}&quot;, memberFullName, amount, date);</span>
-<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        if(null==date)</span>
+<span class="fc" id="L41">        LOGGER.info(&quot;Input memberFullName: {}, Input amount: {}, Input date: {}&quot;, memberFullName, amount, date);</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if(null==date)</span>
         {
-<span class="nc" id="L38">            date = LocalDate.now();</span>
+<span class="nc" id="L44">            date = LocalDate.now();</span>
+
         }
-<span class="fc" id="L40">        return memberTranslator.subtractAccountBalance( memberFullName, amount, date);</span>
+<span class="fc" id="L47">        MemberDto sub = subAmount(memberFullName, amount, date);</span>
+<span class="fc" id="L48">        return sub;</span>
+    }
+
+    private MemberDto subAmount(String memberFullName, Double amount, LocalDate date) {
+<span class="fc" id="L52">        return memberTranslator.subtractAccountBalance(memberFullName, amount, date);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

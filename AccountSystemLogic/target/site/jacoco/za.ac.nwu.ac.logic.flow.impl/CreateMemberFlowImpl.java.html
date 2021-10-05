@@ -29,7 +29,12 @@ public class CreateMemberFlowImpl implements CreateMemberFlow {
 <span class="fc" id="L29">            member.setBalance(50.55);</span>
         }
 
-<span class="fc" id="L32">        return memberTranslator.create(member);</span>
+<span class="fc" id="L32">        MemberDto createMem = createMember(member);</span>
+<span class="fc" id="L33">        return createMem;</span>
+    }
+
+    private MemberDto createMember(MemberDto member) {
+<span class="fc" id="L37">        return memberTranslator.create(member);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
