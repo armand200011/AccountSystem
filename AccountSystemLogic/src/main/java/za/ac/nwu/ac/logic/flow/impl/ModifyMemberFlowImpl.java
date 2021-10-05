@@ -24,8 +24,11 @@ public class ModifyMemberFlowImpl implements ModifyMemberFlow {
     public MemberDto addAccountBalance(String memberFullName, Double amount, LocalDate date) {
         LOGGER.info("Input memberFullName: {}, Input amount: {}, Input date: {}", memberFullName, amount, date);
         if(null==date)
-        {
-            date = LocalDate.now();
+        { try {
+            throw new Exception();
+            }catch(Exception e){
+              date = LocalDate.now();
+            }
         }
 
         MemberDto add = addAmount(memberFullName, amount, date);
