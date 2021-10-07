@@ -38,11 +38,11 @@ public class FetchMemberFlowImpl implements FetchMemberFlow {
     @Override
     public MemberDto getAccountBalance(String memberFullName) {
 <span class="fc" id="L40">        LOGGER.info(&quot;Input: {}&quot;, memberFullName);</span>
-<span class="fc" id="L41">        MemberDto balance = retriewMemberBalance(memberFullName);</span>
+<span class="fc" id="L41">        MemberDto balance = retrieveMemberBalance(memberFullName);</span>
 <span class="fc" id="L42">        return balance;</span>
     }
 
-    private MemberDto retriewMemberBalance(String memberFullName) {
+    private MemberDto retrieveMemberBalance(String memberFullName) {
 <span class="fc" id="L46">        return memberTranslator.getAccountBalanceNativeQuery(memberFullName);</span>
     }
 }

@@ -19,7 +19,6 @@ public class AccountType implements Serializable {
     private String accountTypeCode;
     private String accountTypeName;
 
-    private Set<AccountTransaction> accountTransactions;
 
     public AccountType() {
     }
@@ -71,14 +70,7 @@ public class AccountType implements Serializable {
     }
 
 
-    @OneToMany(targetEntity = Member.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade = CascadeType.PERSIST)
-    public Set<AccountTransaction> getAccountTransactions() {
-        return accountTransactions;
-    }
 
-    public void setAccountTransactions(Set<AccountTransaction> accountTransactions) {
-        this.accountTransactions = accountTransactions;
-    }
 
     @Override
     public boolean equals(Object o) {
